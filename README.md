@@ -1,2 +1,2 @@
-# bam-lambda
-website of BAM! serverless framework
+# Mashr
+website of Mashr data pipeline framework

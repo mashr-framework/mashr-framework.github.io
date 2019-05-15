@@ -2,17 +2,17 @@
 <html prefix="og: http://opg.me/ns#">
   <head>
     <meta charset="UTF-8" />
-    <meta name="title" property="og:title" content="BAM!" />
-    <meta name="description" property="og:description" content="BAM! is a lightweight
-    serverless framework for deploying applications with Node.js and AWS">
+    <meta name="title" property="og:title" content="Mashr" />
+    <meta name="description" property="og:description" content="Mashr is an easy-to-use data pipeline orchestration and monitoring framework for small applications">
     <meta name="type" property="og:type" content="website" />
-    <meta name="url" property="og:url" content="https://www.bam-lambda.com" />
-    <meta name="image" property="og:image" content="https://s3.amazonaws.com/bam-lambda/images/user_sequence.png" />
+    <!-- TODO: change website -->
+    <meta name="url" property="og:url" content="https://www.mashr-framework.com" />
+    <meta name="image" property="og:image" content="assets/logo/mashr_logo_mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Jason Overby, Jocie Moore, Tak Sampson">
-    <title>BAM!</title>
+    <meta name="author" content="Mat Sachs, Linus Phan, Jacob Coker-Dukowitz">
+    <title>Mashr</title>
     <link rel="icon" type="image/png" sizes="32x32"
-    href="https://bit.ly/bamFavicon" />
+    href="assets/logo/mashr_logo_mark.png" />
     <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:800,800i|Raleway:200,400,700"
     rel="stylesheet" />
@@ -30,15 +30,11 @@
   </head>
   <body>
     <div class="logo-links">
-      <img src="https://s3.amazonaws.com/bam-lambda/images/bam_logo.png" alt="BAM! logo" id="bam-logo"/>
-      <a href="https://github.com/bam-lambda/bam" target="_blank">
-          <img src="https://s3.amazonaws.com/bam-lambda/images/github_white.png" alt="github logo"
+        <!-- TODO: change out IDs -->
+      <img src="assets/logo/mashr_logo_mark.png" alt="Mashr logo" id="mashr-logo"/>
+      <a href="https://github.com/mashr-framework/mashr" target="_blank">
+          <img src="assets/icons/github_white.png" alt="github logo"
           id="github-logo"/>
-      </a>
-
-      <a href="https://medium.com/bam-lambda" target="_blank">
-          <img src="https://s3.amazonaws.com/bam-lambda/images/medium_white.png" alt="medium logo"
-          id="medium-logo"/>
       </a>
     </div>
     <nav id="site-navigation">
@@ -58,9 +54,12 @@
       </ul>
     </nav>
     <header id=home>
-      <h1>BAM!</h1>
-      <p>a lightweight serverless framework for <span>humans</span></p>
+      <h1>
+        <img src="assets/logo/mashr_logo.png" alt="Mashr logo"/>
+      </h1>
+      <p>a <span>data pipeline</span> framework built for the cloud</p>
     </header>
+    <hr>
     <main>
       <section id="case-study">
         <h1>Case Study</h1>
@@ -466,9 +465,9 @@
         lambda with an integrated endpoint:</p>
 
         <img src="https://s3.amazonaws.com/bam-lambda/images/bam_deploy.gif" alt="animation of bam deploy
-        command" id="bam-deploy"/>
+        command" id="mashr-deploy"/>
 
-        <h2 id="bam-design">4 BAM! Design</h2>
+        <h2 id="mashr-design">4 BAM! Design</h2>
 
         <p>BAM! is designed to be human-friendly. We spent considerable time
         deciding which AWS services to integrate with Lambda and how to make
@@ -598,7 +597,7 @@
 
         <div class="container"><pre id="list-command"><code class="shell gruvbox-code">
 <span class="heading">Lambdas and endpoints deployed from this machine using BAM!:</span>
-<span class="bam-resource">  nameOfLambda1
+<span class="mashr-resource">  nameOfLambda1
     description: a description of the lambda
     endpoint: http://associatedEndpoint/bam
     http methods: GET
@@ -612,7 +611,7 @@ Other lambdas on AWS
   yetAnotherLambda
 
 <span class="heading">DynamoDB tables deployed from this machine using BAM!:</span>
-<span class="bam-resource">  nameOfTable1
+<span class="mashr-resource">  nameOfTable1
     partition key: id (number)
 
   nameOfTable2

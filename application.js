@@ -1,7 +1,7 @@
 /* global document, window, hljs, $ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const bamLogo = document.querySelector('#bam-logo');
+  const mashrLogo = document.querySelector('#mashr-logo');
   const nav = document.querySelector('nav');
   const navLinks = document.querySelectorAll('#site-navigation a');
   const main = document.querySelector('main');
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isNarrowScreen = () => getWindowWidth() < 1100;
 
   const logos = [...document.querySelectorAll('.logo-links img')]
-    .filter(logo => !(/bam/.test(logo.id)))
+    .filter(logo => !(/mashr/.test(logo.id)))
     .map(logo => logo.id.split('-')[0]);
 
   const snakeCaseify = text => text.toLowerCase().split(' ').join('-');
@@ -178,17 +178,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const handleNavColors = () => {
-    const onHeader = isOnHeader('bam');
-    const onTeam = isOnTeamSection('bam');
+    const onHeader = isOnHeader('mashr');
+    const onTeam = isOnTeamSection('mashr');
     const onMain = !(onHeader || onTeam);
     const isWideScreen = !isNarrowScreen();
 
     if (isWideScreen && !onMain && topNavVisible) {
-      styleNavColors('#9eba2a', '#282828', '#383838');
-      changeImgSrc('bam-logo', 'https://s3.amazonaws.com/bam-lambda/images/bam_logo_black.png'); // black
+      styleNavColors('#ffd162', '#ef431b', '#383838');
+      changeImgSrc('mashr-logo', 'assets/logo/mashr_logo_mark.png'); // black
     } else {
-      styleNavColors('#282828', '#9eba2a', '#c3e634');
-      changeImgSrc('bam-logo', 'https://s3.amazonaws.com/bam-lambda/images/bam_logo.png');
+      styleNavColors('#ffd162', '#ef431b', '#383838');
+      changeImgSrc('mashr-logo', 'assets/logo/mashr_logo_mark.png');
     }
   };
 
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  bamLogo.addEventListener('click', handleNavDisplay);
+  mashrLogo.addEventListener('click', handleNavDisplay);
   main.addEventListener('mouseenter', hideNav);
   ourTeam.addEventListener('mouseenter', hideNav);
   header.addEventListener('mouseenter', hideNav);

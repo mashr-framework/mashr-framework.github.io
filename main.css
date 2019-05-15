@@ -73,6 +73,11 @@ sup a:hover {
   color: #9eba2a;
 }
 
+hr {
+  border-color: #fff;
+  margin: 0 50px;
+}
+
 /* ---------------------------------
 
                images
@@ -85,7 +90,7 @@ img {
   max-width: 800px;
 }
 
-#bam-logo {
+#mashr-logo {
   cursor: pointer;
   width: 50px;
   position: fixed;
@@ -110,7 +115,7 @@ img {
   right: 35px;
 }
 
-#bam-deploy {
+#mashr-deploy {
   background-color: #282828;
   border: 10px solid #282828;
   border-radius: 10px;
@@ -211,8 +216,6 @@ nav#site-navigation a {
 ------------------------------------ */
 
 header {
-  background-color: #282828;
-  color: white;
   height: 100vh;
 }
 
@@ -230,13 +233,21 @@ header p {
   letter-spacing: 0.3rem;
   position: absolute;
   text-align: center;
-  top: 50%;
   transform: translateY(-50%) translateX(-50%);
   width: 850px;
+  padding-top: 50px;
 }
 
 header span {
-  color: #c3e634;
+  color: #ffd162;
+}
+
+header h1 img {
+  display: block;
+  width: 80%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 100px 0;
 }
 
 /* ---------------------------------
@@ -354,7 +365,7 @@ header span {
   color: #98971a;
 }
 
-#list-command .bam-resource {
+#list-command .mashr-resource {
   color: #b8bb26;
 }
 
@@ -604,7 +615,7 @@ small {
 
   /* Logos */
 
-  #bam-logo {
+  #mashr-logo {
     width: 40px;
     top: 18px;
     right: 21px;
@@ -797,7 +808,7 @@ small {
 }
 
 @media (max-width: 400px) {
-  #bam-logo {
+  #mashr-logo {
     width: 33px;
     right: 15px;
   }

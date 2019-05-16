@@ -70,25 +70,50 @@
 
         <h2 id="introduction">1 Introduction</h2>
 
-        <h3>1.1 What is BAM!?</h3>
+        <h3>1.1 What is Mashr?</h3>
 
-        <p>BAM! is a serverless framework that makes it quick (hence, the name)
-        and easy to get small applications up and running using Node.js and
-        Amazon Web Services (AWS). It is optimized for the deployment of AWS
-        Lambda functions integrated with Amazon API Gateway endpoints, but also
-        allows for the creation of Amazon DynamoDB tables, which can be used to
-        persist data between lambda invocations.</p>
+        <p>Mashr is an easy-to-use data pipeline orchestration and monitoring
+        framework for small applications. Mashr simplifies the process of taking
+        your data from disparate sources and putting them into a single place so
+        that you can use that data. It is optimized for data pipeline best
+        practices including monitoring for each step of your data pipeline along
+        with archiving and backup in case of failover. Mashr is built with
+        Node.js, provides an easy-to-use CLI, and uses Docker to host Embulk on
+        GCE Instances on Google Cloud Platform (GCP).</p>
 
-        <p>In comparison to other technologies, the biggest benefits of
-        serverless are, arguably, the rapidity of iteration and the abstraction
-        of infrastructure management. The irony is that the experience of
-        working with serverless technologies often lacks the very simplicity the
-        idea of serverless computing promises to deliver. As a result, BAM!
-        prioritizes speed and convenience for the developer.</p>
+        <p>In today’s world even small applications use a variety of tools to
+        get the job done. It’s reasonable to assume that a small application
+        would have data in over a dozen sources including email applications,
+        ecommerce platforms, and more. Without a data pipeline that transfers
+        data from multiple sources to a central repository, it can be difficult
+        to perform analysis and make sound business decisions.</p>
 
-        <p>This article will examine the design decisions we made while building
-        the BAM!  framework, as well as our solutions to a variety of challenges
-        we faced.</p>
+        <p>Cloud platforms give the promise of easy-to-use solutions to answer
+        problems like this. The irony, however, is that cloud platforms can
+        often still be cumbersome to use and offer an overwhelming array of
+        choices that can make life difficult for a developer. Mashr was built to
+        simplify the process of deploying data pipelines in the cloud so that
+        developers can focus on building their application and not the data
+        pipeline.</p>
+
+        <p>This case study will begin by describing some of the best practices
+        for building a data pipeline, as well as the challenges that developers
+        face in building their own. Next we’ll talk about some of the existing
+        solutions that solve this problem, and why we built Mashr to address
+        some of the drawbacks of those solutions. Finally, we’ll discuss the
+        design questions we made while building Mashr and some of the unique
+        challenges that came up along the way.</p>
+
+        <h3>1.2 Why GCP?</h3>
+
+        <p>Although we’d like for Mashr to support other cloud providers in the
+        future, Mashr currently only supports setting up a data pipeline on GCP.
+        GCP is by no means the only cloud provider in existence. We decided to
+        start with implementing Mashr to build a data pipeline on GCP because of
+        its robust set of tools for data analysis. In comparing the tools for
+        big data analytics between Google’s GCP and Amazon’s AWS, GCP has an
+        edge due to their varied range of services, including Tensorflow which
+        is one of the most used Machine Learning libraries [3].</p>
 
         <h2 id="serverless">2 Serverless</h2>
 
@@ -343,129 +368,161 @@
 
         <p>Only now is the rest API endpoint ready to be called.</p>
 
-        <h2 id="frameworks">3 Frameworks</h2>
+        <h2 id="frameworks">3 Solutions</h2>
 
-        <p>As you can see from the above, working with AWS directly is usually a
-        complex process. A considerable amount of knowledge about each service
-        is needed, and it can require some digging to determine the sequence of
-        commands to achieve a desired outcome.</p>
+        <p>Due to the complexity of setting up a data pipeline on your own,
+        there are many solutions currently in existence that seek to ease the
+        process.</p>
 
-        <p>Many frameworks have come into being to enable developers to make the
-        most of AWS while avoiding parts that are cumbersome. These frameworks
-        range from those that are optimized for a specific use case with
-        relatively simple capabilities to those that are harder to work with,
-        but offer greater functionality and control.</p>
+        <h3>3.1 Hosted Solutions</h3>
 
-        <p>Below, we explore four open-source frameworks in depth including
-        BAM!.</p>
+        <p>First, there are “hosted” solutions, which are either fully or
+        partially proprietary solutions that abstract away server setup and
+        deploys an entire data pipeline for you.</p>
 
-        <h3>3.1 Serverless Framework</h3>
+        <p>Most of these services provide a graphical interface and
+        plug-and-play functionality. They range from enterprise grade services
+        like Informatica PowerCenter that can cost 6 figures, to tools such as
+        Stitch and FiveTran which provide affordable tiers to small and medium
+        sized companies.</p>
 
-        <p>Serverless Framework is a suite of applications that enables
-        developers to deploy and manage serverless code. It has been around
-        since 2015, and it is the dominant platform in this space.</p>
-
-        <p>Pros:</p>
+        <p>There are several good reasons to go with a hosted solution:</p>
         <ul>
-          <li>supports a variety of providers and runtimes</li>
-          <li>supports a wide range of configuration and functionality</li>
-          <li>includes prefab lambda code and helpful lambda templates</li>
+          <li>Both the infrastructure and the processes for dealing with
+          extraction and loading is abstracted from the user—there are no
+          servers to consider.</li>
+          <li>Many deal with failover and backup of your data.</li>
+          <li>Also, many have a graphical user interface which makes these
+          solutions convenient and easy to use.</li>
         </ul>
 
-        <p>Cons:</p>
+        <p>There are also some downsides:</p>
         <ul>
-          <li>requires YAML file configuration</li>
-          <li>creates many AWS resources to accomplish even a simple
-            deployment</li>
-          <li>takes approx. 2 mins on avg for initial deployment based on our
-            tests</li>
+          <li>They cost money.</li>
+          <li>Data sits on someone else’s server which is just one more
+          vulnerability you have to worry about.</li>
+          <li>There is less control and customization available to you as a
+          developer.</li>
         </ul>
 
-        <h3>3.2 Claudia.js</h3>
+        <img src="#"
+        alt="pros and cons table for hosted solutions"/>
 
-        <p>Claudia.js is a serverless deployment tool, which was made
-        specifically to help JavaScript developers create AWS serverless
-        applications easily and independently from AWS CloudFormation, Amazon's
-        service for provisioning resources.</p>
+        <h3>3.2 Self-Hosted Solutions</h3>
 
-        <p>Pros:</p>
+        <p>The second group of solutions are "self-hosted" solutions. These are
+        open source tools which allow you to implement your own data pipeline.
+        These solutions don’t handle hosting for you and require more
+        configuration. Unfortunately, many of these solutions are
+        unmaintained.</p>
+
+        <p>As an example, one of the surviving and most successful of these open
+        source platforms is Pentaho Data Integration (PDI) [12] which integrates
+        with over 300 services. PDI's graphical interface can be used to develop
+        a simple ETL data pipeline to have steps for extraction, transformation,
+        and loading.</p>
+
+
+        <p>The pros of self-hosted solutions are:</p>
         <ul>
-          <li>supports a wide range of configuration</li>
-          <li>includes optimized modules for specific use cases
-            (<code>claudia-api-builder</code>,
-            <code>claudia-bot-builder</code>)</li>
-          <li>is simpler than Serverless Framework</li>
+          <li>They are very customizable. You can edit or extend the code as
+          needed. If an integration doesn’t exist that you need you could always
+          build one.</li>
+          <li>You don’t need to worry about the data sitting on anyone else’s
+          servers.</li>
+          <li>They are cheap.</li>
         </ul>
 
-        <p>Cons:</p>
+        <p>The downside to using a self-hosted solution is that their
+        customizability comes at a cost—both financially and in terms of
+        time:</p>
         <ul>
-          <li>relies upon <code>npm init</code> to create a
-            <code>package.json</code></li>
-          <li>requires separate installation of <code>claudia-api-builder</code>
-            and <code>claudia</code> modules</li>
-          <li>supports only Node.js runtime and AWS services</li>
-          <li>takes approx. 1 min 15 secs on avg for initial deployment based on
-            our tests</li>
+          <li>If you want a fully automated solution you will still need to host
+          it somewhere.</li>
+          <li>You will need to learn the application and set up the
+          infrastructure for it. For example, you will likely need to worry
+          about managing the scheduling, archiving, monitoring, or failover for
+          your data.</li>
         </ul>
 
-        <h3>3.3 Shep</h3>
+        <img src="#"
+        alt="pros and cons table for self-hosted solutions"/>
 
-        <p>Shep, which bills itself as a way to “make serverless simple”, is an
-        opinionated framework designed to streamline deployment of AWS Lambda
-        functions that can be invoked via Amazon API Gateway endpoints.</p>
+        <h3>3.3 Mashr</h3>
 
-        <p>Pros:</p>
+        <p>Recall that Mashr is built for small applications that have data
+        spread out over a variety of data sources such as a psql database,
+        salesforce, or other applications with REST API’s. Developers for the
+        small application want to combine all of that data into one place so
+        they can use it.</p>
+
+        <p>Since the users in our scenario are developers, they would also like
+        the ability to customize the code if needed. For example, they may want
+        to add their own transformation or validation steps. Additionally, if
+        the solution doesn’t come with an integration for a particular source,
+        they’d like the ability to create it.</p>
+
+        <p>Using a self-hosted solution sounds better since it is customizable,
+        and already partially implemented. However these solutions usually don’t
+        account for the hosting, scheduling, monitoring, or failover necessary
+        in a production environment. They still take a lot of time to set up
+        hosting and to make all of the orchestration decisions.</p>
+
+        <p>This is where Mashr fits in—Mashr’s goal is to provide all the
+        extraction, transformation, and loading functionality a small
+        application needs, while being customizable and simple for a developer
+        to deploy. Mashr does all of this while also taking into account the
+        best practices for setting up a data pipeline.</p>
+
+        <img src="#"
+        alt="showing where mashr sits on scale of level of abstraction"/>
+
+        <p>By “Abstracted” in the image above we mean how much of the hosting,
+        management and configuration a user has to worry about.</p>
+
+        <p>Mashr sits somewhere in the middle. It is less abstracted than a
+        hosted solution, and more abstracted than a self-hosted solution. Mashr
+        makes decisions for the user about the scheduling and running of jobs,
+        how to recover data that fails to load, or where to archive data for
+        future reference.</p>
+
+        <img src="#"
+        alt="showing where mashr sits on scale of level of customizability"/>
+
+        <p>Similarly with “customizability”, Mashr is positioned between hosted
+        and self-hosted solutions. Since Mashr is open source, a user can alter
+        the code when necessary.</p>
+
+        <p>Hosted solutions are closed systems that have limited
+        customizability. At the same time, since Mashr has more functionality
+        built-in than many self-hosted options, it’s less customizable compared
+        to typical self-hosted solutions. Those solutions leave hosting and
+        orchestration details up to the user to customize themselves.</p>
+
+        <p>The pros for using Mashr include:</p>
         <ul>
-          <li>uses prompts instead of configuration files</li>
-          <li>can deploy multiple lambas at one time</li>
+          <li>You don’t have to worry about the data sitting on someone else’s
+          servers.</li>
+          <li>More abstraction than a self-hosted solution; it manages the set
+          up of infrastructure for your data pipeline.</li>
+          <li>More customizability than the hosted solutions. You can add new
+          integrations, and it provides an easy way to add your transformation
+          and validation steps.</li>
         </ul>
 
-        <p>Cons:</p>
+        <p>The cons for using Mashr are that:</p>
         <ul>
-          <li>permits few configuration options</li>
-          <li>requires grouping code into <i>“projects”</i> and bundling with
-            Webpack</li>
-          <li>supports only Node.js runtime, AWS Lambda, and Amazon API
-            Gateway</li>
-          <li>takes approx. 2 mins on avg for initial deployment based on our
-            tests</li>
+          <li>While Mashr sets up the data pipeline infrastructure, it leaves it
+          up to the user to manage it. For instance, the user may have to go
+          into those resources and debug them if an error appears.</li>
+          <li>Mashr is opinionated about how a data pipeline should be set up on
+          GCP. If your use case is more complicated or you want to use other GCP
+          tools then that would mean editing the actual code base of Mashr or
+          using GCP’s UI.</li>
         </ul>
 
-        <p>In a nutshell, Serverless is full-featured and offers many options,
-        but it is geared toward enterprise applications and can often feel as
-        complex as AWS itself. Claudia.js still has a lot of functionality, and
-        though it’s simpler than Serverless, it’s not quite ideal for getting a
-        small application up and running quickly. On the other end of the
-        spectrum, Shep is functional, but lacks conveniences that would make
-        working with AWS Lambda easy.</p>
-
-        <h3>3.4 BAM!</h3>
-
-        <p>The goal with BAM! is to have the right functionality for a small
-        application, while being quick and easy to use for the developer.</p>
-
-        <p>Pros:</p>
-        <ul>
-          <li>does not require a <i>“project”</i> directory or configuration
-            files</li>
-          <li>can persist data between Lambda invocations via DynamoDB</li>
-          <li>includes helpful lambda templates</li>
-          <li>takes approx. 20 secs on avg for initial deployment based on our
-            tests</li> </ul>
-
-        <p>Cons:</p>
-        <ul>
-          <li>permits few configuration options</li>
-          <li>supports only Node.js runtime, AWS Lambda, Amazon API Gateway, and
-            DynamoDB</li>
-        </ul>
-
-        <p>As an example of what BAM! can do, the GIF below shows the
-        single BAM! command (<code>bam deploy myLambda</code>) to deploy a
-        lambda with an integrated endpoint:</p>
-
-        <img src="https://s3.amazonaws.com/bam-lambda/images/bam_deploy.gif" alt="animation of bam deploy
-        command" id="mashr-deploy"/>
+        <img src="#"
+        alt="pros and cons table for mashr"/>
 
         <h2 id="mashr-design">4 Mashr Design</h2>
 
@@ -1146,22 +1203,23 @@ const bamBam = async (asyncFunc, {
           <h5>7.1 Footnotes</h5>
           <ol>
             <li id="footnote-1"><a
-                href="https://arstechnica.com/information-technology/2016/04/amazon-cloud-has-1-million-users-and-is-near-10-billion-in-annual-sales/"
-                target="_blank">https://arstechnica.com/information-technology/2016/04/amazon-cloud-has-1-million-users-and-is-near-10-billion-in-annual-sales/</a></li>
-            <li id="footnote-2"><a href="https://sdtimes.com/amazon/amazon-introduces-lambda-containers/" target="_blank">https://sdtimes.com/amazon/amazon-introduces-lambda-containers/</a></li>
+                href="https://en.wikipedia.org/wiki/Extract,_transform,_load"
+                target="_blank">https://en.wikipedia.org/wiki/Extract,_transform,_load</a></li>
+            <li id="footnote-2"><a href="https://www.sdxcentral.com/articles/news/aws-remains-dominant-player-in-growing-cloud-market-srg-reports/2019/02/" target="_blank">https://www.sdxcentral.com/articles/news/aws-remains-dominant-player-in-growing-cloud-market-srg-reports/2019/02/</a></li>
             <li id="footnote-3"><a
-                href="https://serverless.com/blog/serverless-by-the-numbers-2018-data-report"
-                target="_blank">https://serverless.com/blog/serverless-by-the-numbers-2018-data-report</a></li>
-            <li id="footnote-4"><a href="https://aws.amazon.com/products/?hp=tile&so-exp=below" target="_blank">https://aws.amazon.com/products/?hp=tile&so-exp=below</a></li>
-            <li id="footnote-5"><a href="https://serverless.com/blog/keep-your-lambdas-warm/" target="_blank">https://serverless.com/blog/keep-your-lambdas-warm/</a></li>
-            <li id="footnote-6"><a href="https://www.robertvojta.com/aws-journey-api-gateway-lambda-vpc-performance/" target="_blank">https://www.robertvojta.com/aws-journey-api-gateway-lambda-vpc-performance/</a></li>
-            <li id="footnote-7"><a href="https://aws.amazon.com/lambda/pricing/" target="_blank">https://aws.amazon.com/lambda/pricing/</a></li>
-            <li id="footnote-8"><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Request.html" target="_blank">https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Request.html</a></li>
-            <li id="footnote-9"><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html" target="_blank">https://docs.aws.amazon.com/apigateway/latest/developerguide/limits.html</a></li>
-            <li id="footnote-10"><a href="https://aws.amazon.com/blogs/compute/announcing-ruby-support-for-aws-lambda/" target="_blank">https://aws.amazon.com/blogs/compute/announcing-ruby-support-for-aws-lambda/</a></li>
-            <li id="footnote-11"><a href="https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/" target="_blank">https://aws.amazon.com/about-aws/whats-new/2018/11/aws-lambda-now-supports-custom-runtimes-and-layers/</a></li>
+                href="https://www.edureka.co/blog/google-cloud-vs-aws/#BDAC"
+                target="_blank">https://www.edureka.co/blog/google-cloud-vs-aws/#BDAC</a></li>
+            <li id="footnote-4"><a href="https://blog.panoply.io/a-full-comparison-of-redshift-and-bigquery" target="_blank">https://blog.panoply.io/a-full-comparison-of-redshift-and-bigquery</a></li>
+            <li id="footnote-5"><a href="https://www.singer.io/" target="_blank">https://www.singer.io/</a></li>
+            <li id="footnote-6"><a href="https://www.youtube.com/watch?v=wiwabNQzRJc" target="_blank">https://www.youtube.com/watch?v=wiwabNQzRJc</a></li>
+            <li id="footnote-7"><a href="https://airflow.apache.org/" target="_blank">https://airflow.apache.org/</a></li>
+            <li id="footnote-8"><a href="https://www.stitchdata.com/" target="_blank">https://www.stitchdata.com/</a></li>
+            <li id="footnote-9"><a href="https://cloud.google.com/storage/docs/storage-classes" target="_blank">https://cloud.google.com/storage/docs/storage-classes</a></li>
+            <li id="footnote-10"><a href="https://cloud.google.com/compute/docs/machine-types" target="_blank">https://cloud.google.com/compute/docs/machine-types</a></li>
+            <li id="footnote-11"><a href="https://cloud.google.com/nodejs/docs/" target="_blank">https://cloud.google.com/nodejs/docs/</a></li>
+            <li id="footnote-12"><a href="https://help.pentaho.com/Documentation/7.1/0D0/Pentaho_Data_Integration" target="_blank">https://help.pentaho.com/Documentation/7.1/0D0/Pentaho_Data_Integration</a></li>
           </ol>
-
+<!--
           <h5>7.2 Resources</h5>
           <ol>
             <li><a
@@ -1192,6 +1250,7 @@ const bamBam = async (asyncFunc, {
                 href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html"
                 target="_blank">AWS DynamoDB Document Client SDK</a></li>
           </ul>
+-->
         </section>
       </section>
     </main>

@@ -109,10 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const changeLogoColors = () => {
     logos.forEach((logo) => {
-      const onHeader = isOnHeader(logo);
+      // const onHeader = isOnHeader(logo);
       const onTeam = isOnTeamSection(logo);
 
-      if (onHeader || onTeam) {
+      if (onTeam) {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}White`]);
       } else {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}Black`]);

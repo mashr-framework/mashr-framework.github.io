@@ -112,7 +112,8 @@ sup a:hover {
 }
 
 hr {
-  border-color: #fff;
+  border-style: solid;
+  border-color: #ef431b;
   margin: 0 50px;
 }
 

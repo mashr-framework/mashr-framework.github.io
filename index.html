@@ -731,11 +731,12 @@
         <code>incremental</code> is set to <code>true</code>, and that the
         columns that Embulk will track for incremental loading are
         <code>created_at</code> and <code>id</code>. When we run this job with
-        the command <code>embulk run config.yml -c diff.yml</code>, Embulk will
-        create a separate <code>diff.yml</code> file that keeps track of the
+        the command 
+        <code class="command">embulk run config.yml -c diff.yml</code>, Embulk 
+        will create a separate <code>diff.yml</code> file that keeps track of the
         last values of <code>created_at</code> and <code>id</code> that have
         been loaded. Embulk will then check those values the next time
-        <code>embulk run config.yml -c diff.yml</code> runs.</p>
+        <code class="command">embulk run config.yml -c diff.yml</code> runs.</p>
 
         <h4>4.2.2 How Mashr uses Embulk</h4>
         <p>Recall that earlier we talked about how data pipelines are composed

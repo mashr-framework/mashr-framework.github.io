@@ -142,21 +142,28 @@
 
         <p>Unfortunately, they need a little more than this simple diagram:</p>
         <ul>
-            <li>If a job fails to load to the destination database, they want to 
-            be able to keep a record of it so that they can see what went wrong 
-            and so that they don’t lose any data</li>
-            <li>They need to keep an archive of successful load jobs to the 
-            database as well, so that they can debug issues if any data is 
-            corrupted</li>
-            <li>They will be performing some transformation and validation on 
-            the data before it is loaded into the destination database</li>
+            <li>
+              If a job fails to load to the destination database, they want to
+              be able to keep a record of it so that they can see what went
+              wrong and so that they don’t lose any data.
+            </li>
+            <li>
+              They need to keep an archive of successful load jobs to the
+              database as well, so that they can debug issues if any data is
+              corrupted.
+            </li>
+            <li>
+              They will be performing some transformation and validation on the
+              data before it is loaded into the destination database.
+            </li>
         </ul>
 
-        <p>Lastly, Bookend is a small but growing application and they will want 
-        to add new sources of data in the future. For instance, they might begin 
-        selling on another ecommerce platform like eBay, or use a different mail 
-        provider or add a text messaging system. Therefore they would like an 
-        easy way to add new integrations as needed without a lot of overhead.</p>
+        <p>Lastly, Bookend is a small but growing application and they will
+        want to add new sources of data in the future. For instance, they might
+        begin selling on another ecommerce platform like eBay, or use a
+        different mail provider or add a text messaging system. Therefore they
+        would like an easy way to add new integrations as needed without a lot
+        of overhead.</p>
 
         <p>After considering those features, the diagram of what they want looks 
         more like this:</p>
@@ -215,11 +222,11 @@
         For example:</p>
 
         <ul>
-            <li>Removing extraneous or erroneous data (cleaning), </li>
-            <li>Encoding free-form values</li>
-            <li>Translating coded values</li>
-            <li>Deriving a new calculated value</li>
-            <li>Splitting a column into multiple columns</li>
+          <li>Removing extraneous or erroneous data (cleaning), </li>
+          <li>Encoding free-form values</li>
+          <li>Translating coded values</li>
+          <li>Deriving a new calculated value</li>
+          <li>Splitting a column into multiple columns</li>
         </ul>
 
         <p>For example, we would want to encode free-form values if the source 
@@ -231,27 +238,29 @@
 
         <h4>2.2.4 Staging / Archiving</h4>
 
-        <p>As we mentioned above, the load job will fail with many databases if 
-        you try to load data in the wrong format. You will need to consider what 
-        to do with your data if the data fails to load to the destination database. 
-        One solution is to not load data directly into the destination database. 
-        Instead, the data should first enter a staging area. We then attempt to 
-        perform a load job from this staging location. The data could then be 
-        archived if the load job is successful, and held in the staging area if 
-        the load job fails. If we keep an archive of the data, our data pipeline 
-        can be more resilient to failover and we can make it easier to rollback 
-        if something goes wrong. In addition to handling errors, we can use the 
-        archive and staging locations to generate audit reports or diagnose and 
-        repair problems.</p>
+        <p>As we mentioned above, the load job will fail with many databases if
+        you try to load data in the wrong format. You will need to consider
+        what to do with your data if the data fails to load to the destination
+        database.  One solution is to not load data directly into the
+        destination database.  Instead, the data should first enter a staging
+        area. We then attempt to perform a load job from this staging location.
+        The data could then be archived if the load job is successful, and held
+        in the staging area if the load job fails. If we keep an archive of the
+        data, our data pipeline can be more resilient to failover and we can
+        make it easier to rollback if something goes wrong. In addition to
+        handling errors, we can use the archive and staging locations to
+        generate audit reports or diagnose and repair problems.</p>
 
         <h4>2.2.5 Monitoring</h4>
 
-        <p>Because load jobs are not always successful and data can become corrupted, we need an easy way to debug each step of our data pipeline. Therefore, we should have a logging service that takes account of:</p>
+        <p>Because load jobs are not always successful and data can become
+        corrupted, we need an easy way to debug each step of our data pipeline.
+        Therefore, we should have a logging service that takes account of:</p>
 
         <ul>
-            <li>What action was taken</li>
-            <li>If there were errors that occurred</li>
-            <li>What data was transferred in each step of our data pipeline</li>
+          <li>What action was taken</li>
+          <li>If there were errors that occurred</li>
+          <li>What data was transferred in each step of our data pipeline</li>
         </ul>
 
         <p>Ideally, if you were to see data corrupted in your destination 
@@ -299,26 +308,30 @@
         frequently occur in two areas: </p>
 
         <ul>
-            <li>Pulling data from the source: a source may be an API that 
-            throttles too many requests or a database with read limits. </li>
-            <li>Loading data to the destination database: usually because of 
-            write limits or other constraints specific to the kind of database 
-            that you are loading data into.</li>
+          <li>
+            Pulling data from the source: a source may be an API that throttles
+            too many requests or a database with read limits.
+          </li>
+          <li>
+            Loading data to the destination database: usually because of write
+            limits or other constraints specific to the kind of database that
+            you are loading data into.
+          </li>
         </ul>
 
         <h3>2.3 Flow of Data</h3>
-        <p>Once you’ve thought through which of these features your data 
-        pipeline will implement and how it will implement them, you’ll then want 
-        to consider in what order your data pipeline flows. There are two 
+        <p>Once you’ve thought through which of these features your data
+        pipeline will implement and how it will implement them, you’ll then
+        want to consider in what order your data pipeline flows. There are two
         specific subsets of data pipelines that you may hear about.</p>
 
         <h4>2.3.1 ETL</h4>
-        <p>The first subset is ETL, which stands for “Extract, Transform, Load”. 
-        This follows the traditional flow of data for most data pipelines. Due 
-        to the cost of storing data, you would want to perform any 
-        transformations that reduce the amount of data before loading it to the 
-        destination database [6]. For instance you may want to perform 
-        aggregations on the data or another step that would reduce the amount 
+        <p>The first subset is ETL, which stands for “Extract, Transform,
+        Load”.  This follows the traditional flow of data for most data
+        pipelines. Due to the cost of storing data, you would want to perform
+        any transformations that reduce the amount of data before loading it to
+        the destination database [6]. For instance you may want to perform
+        aggregations on the data or another step that would reduce the amount
         of data before loading.</p>
 
 
@@ -391,7 +404,7 @@
         Google Cloud Storage Bucket requires you to determine which Storage 
         Class to use [9].</p>
 
-        <h2 id="frameworks">3 Solutions</h2>
+        <h2 id="solutions">3 Solutions</h2>
 
         <p>Due to the complexity of setting up a data pipeline on your own,
         there are many solutions currently in existence that seek to ease the
@@ -411,21 +424,29 @@
 
         <p>There are several good reasons to go with a hosted solution:</p>
         <ul>
-          <li>Both the infrastructure and the processes for dealing with
-          extraction and loading is abstracted from the user—there are no
-          servers to consider.</li>
+          <li>
+            Both the infrastructure and the processes for dealing with
+            extraction and loading is abstracted from the user—there are no
+            servers to consider.
+          </li>
           <li>Many deal with failover and backup of your data.</li>
-          <li>Also, many have a graphical user interface which makes these
-          solutions convenient and easy to use.</li>
+          <li>
+            Also, many have a graphical user interface which makes these
+            solutions convenient and easy to use.
+          </li>
         </ul>
 
         <p>There are also some downsides:</p>
         <ul>
           <li>They cost money.</li>
-          <li>Data sits on someone else’s server which is just one more
-          vulnerability you have to worry about.</li>
-          <li>There is less control and customization available to you as a
-          developer.</li>
+          <li>
+            Data sits on someone else’s server which is just one more
+            vulnerability you have to worry about.
+          </li>
+          <li>
+            There is less control and customization available to you as a
+            developer.
+          </li>
         </ul>
 
         <img src="#"
@@ -439,20 +460,24 @@
         configuration. Unfortunately, many of these solutions are
         unmaintained.</p>
 
-        <p>As an example, one of the surviving and most successful of these open
-        source platforms is Pentaho Data Integration (PDI) [12] which integrates
-        with over 300 services. PDI's graphical interface can be used to develop
-        a simple ETL data pipeline to have steps for extraction, transformation,
-        and loading.</p>
+        <p>As an example, one of the surviving and most successful of these
+        open source platforms is Pentaho Data Integration (PDI) [12] which
+        integrates with over 300 services. PDI's graphical interface can be
+        used to develop a simple ETL data pipeline to have steps for
+        extraction, transformation, and loading.</p>
 
 
         <p>The pros of self-hosted solutions are:</p>
         <ul>
-          <li>They are very customizable. You can edit or extend the code as
-          needed. If an integration doesn’t exist that you need you could always
-          build one.</li>
-          <li>You don’t need to worry about the data sitting on anyone else’s
-          servers.</li>
+          <li>
+            They are very customizable. You can edit or extend the code as
+            needed. If an integration doesn’t exist that you need you could
+            always build one.
+          </li>
+          <li>
+            You don’t need to worry about the data sitting on anyone else’s
+            servers.
+          </li>
           <li>They are cheap.</li>
         </ul>
 
@@ -460,12 +485,16 @@
         customizability comes at a cost—both financially and in terms of
         time:</p>
         <ul>
-          <li>If you want a fully automated solution you will still need to host
-          it somewhere.</li>
-          <li>You will need to learn the application and set up the
-          infrastructure for it. For example, you will likely need to worry
-          about managing the scheduling, archiving, monitoring, or failover for
-          your data.</li>
+          <li>
+            If you want a fully automated solution you will still need to host
+            it somewhere.
+          </li>
+          <li>
+            You will need to learn the application and set up the
+            infrastructure for it. For example, you will likely need to worry
+            about managing the scheduling, archiving, monitoring, or failover
+            for your data.
+          </li>
         </ul>
 
         <img src="#"
@@ -524,24 +553,34 @@
 
         <p>The pros for using Mashr include:</p>
         <ul>
-          <li>You don’t have to worry about the data sitting on someone else’s
-          servers.</li>
-          <li>More abstraction than a self-hosted solution; it manages the set
-          up of infrastructure for your data pipeline.</li>
-          <li>More customizability than the hosted solutions. You can add new
-          integrations, and it provides an easy way to add your transformation
-          and validation steps.</li>
+          <li>
+            You don’t have to worry about the data sitting on someone else’s
+            servers.
+          </li>
+          <li>
+            More abstraction than a self-hosted solution; it manages the set up
+            of infrastructure for your data pipeline.
+          </li>
+          <li>
+            More customizability than the hosted solutions. You can add new
+            integrations, and it provides an easy way to add your
+            transformation and validation steps.
+          </li>
         </ul>
 
         <p>The cons for using Mashr are that:</p>
         <ul>
-          <li>While Mashr sets up the data pipeline infrastructure, it leaves it
-          up to the user to manage it. For instance, the user may have to go
-          into those resources and debug them if an error appears.</li>
-          <li>Mashr is opinionated about how a data pipeline should be set up on
-          GCP. If your use case is more complicated or you want to use other GCP
-          tools then that would mean editing the actual code base of Mashr or
-          using GCP’s UI.</li>
+          <li>
+            While Mashr sets up the data pipeline infrastructure, it leaves it
+            up to the user to manage it. For instance, the user may have to go
+            into those resources and debug them if an error appears.
+          </li>
+          <li>
+            Mashr is opinionated about how a data pipeline should be set up on
+            GCP. If your use case is more complicated or you want to use other
+            GCP tools then that would mean editing the actual code base of
+            Mashr or using GCP’s UI.
+          </li>
         </ul>
 
         <img src="#"
@@ -556,57 +595,44 @@
         <ul>
           <li>
             <code class="command">init</code>
-            <span>
-              - creates a YAML configuration file in the users working
-              directory
-            </span>
+            - creates a YAML configuration file in the users working
+            directory
           </li>
           <li>
             <code class="command">deploy</code>
-            <span>
-              - launches all of the GCP resources to create the data pipeline
-            </span>
+            - launches all of the GCP resources to create the data pipeline
           </li>
           <li>
             <code class="command">destroy</code>
-            <span>
-              - destroys all of the GCP resources of a specific data pipeline
-            </span>
+            - destroys all of the GCP resources of a specific data pipeline
           </li>
-
           <li>
             <code class="command">list</code>
-            <span>
-              - lists your current data pipelines
-            </span>
+            - lists your current data pipelines
           </li>
           <li>
             <code class="command">help</code>
-            <span>
              - help text for Mashr
-            </span>
           </li>
         </ul>
 
-        <p>
-          The workflow for a developer looks like this:
-        </p>
+        <p>The workflow for a developer looks like this:</p>
 
         <ul>
           <li>
-            First, you would run <code>mashr init</code> which sets up the user’s
-            current working directory as a mashr directory. It would create a
-            <code>mashr_config.yaml</code> file in the user’s current working
-            directory.
+            First, you would run <code>mashr init</code> which sets up the
+            user’s current working directory as a mashr directory. It would
+            create a <code>mashr_config.yaml</code> file in the user’s current
+            working directory.
           </li>
-          <li>The user then fills out the <code>mashr_config.yml</code> file
+          <li>
+            The user then fills out the <code>mashr_config.yml</code> file
             to tell Mashr what data source it will be pulling from and what
             BigQuery dataset and table the data should go to.
           </li>
           <li>
             Then you run <code>mashr deploy</code>, this launches all of the
-            resources
-            needed.
+            resources needed.
           </li>
           <li>
             Finally, <code>mashr destroy</code> will take down all those
@@ -614,417 +640,275 @@
           </li>
         </ul>
 
-        <p>
-          Before going into detail about the data pipeline that Mashr deploys
-          and what these commands do behind the scenes, it’s important to
-          understand the tools and GCP services that Mashr uses.
-        </p>
+        <p>Before going into detail about the data pipeline that Mashr deploys
+        and what these commands do behind the scenes, it’s important to
+        understand the tools and GCP services that Mashr uses.</p>
 
         <h3>GCP services used</h3>
-        <p>
-          <strong>INSERT GCP TABLE HERE</strong>
-        </p>
-        <p>
-          When Mashr deploys to GCP it makes use of a number of services,
-          shown in the table above.  Readers may already be familiar with AWS’s
-          cloud services, so we’ll name the equivalent service on AWS to help
-          build a frame of reference.
-        </p>
+        <p><strong>INSERT GCP TABLE HERE</strong></p>
+        <p>When Mashr deploys to GCP it makes use of a number of services,
+        shown in the table above.  Readers may already be familiar with AWS’s
+        cloud services, so we’ll name the equivalent service on AWS to help
+        build a frame of reference.</p>
 
-        <h3>4.1.1 Google Compute Engine (GCE)</h3>
-        <p>
-          GCE is the Infrastructure-as-a-Service (IaaS) component of GCP. A GCE
-          Instance is a virtual machine. If you’re familiar with AWS this is
-          similar to an EC2 instance.
-        </p>
+        <h4>4.1.1 Google Compute Engine (GCE)</h4>
+        <p>GCE is the Infrastructure-as-a-Service (IaaS) component of GCP. A
+        GCE Instance is a virtual machine. If you’re familiar with AWS this is
+        similar to an EC2 instance.</p>
 
-        <h3>4.1.2 Google Cloud Storage (GCS)</h3>
-        <p>
-          GCS is a data storage service similar to AWS’s S3. GCS users create
-          “buckets” to store data. Each bucket can have different settings that
-          affect the speed and price of the storage. For example Mashr uses
-          both “Multi-Regional” and “Coldline” storage. Multi-Regional is
-          faster but more expensive than Coldline storage.
-        </p>
+        <h4>4.1.2 Google Cloud Storage (GCS)</h4>
+        <p>GCS is a data storage service similar to AWS’s S3. GCS users create
+        “buckets” to store data. Each bucket can have different settings that
+        affect the speed and price of the storage. For example Mashr uses both
+        “Multi-Regional” and “Coldline” storage. Multi-Regional is faster but
+        more expensive than Coldline storage.</p>
 
-        <h3>
-          4.1.3 Cloud Function
-        </h3>
-        <p>
-          Cloud Functions are GCP’s implementation of a Function-as-a-Service
-          (FaaS) platform, similar to AWS Lambda. It executes custom code on
-          fully-managed servers in response to event triggers. Since the
-          servers are fully managed, this removes the work needed to manage the
-          infrastructure that the code runs on.
-        </p>
+        <h4>4.1.3 Cloud Function</h4>
+        <p>Cloud Functions are GCP’s implementation of a Function-as-a-Service
+        (FaaS) platform, similar to AWS Lambda. It executes custom code on
+        fully-managed servers in response to event triggers. Since the servers
+        are fully managed, this removes the work needed to manage the
+        infrastructure that the code runs on.</p>
 
-        <h3>
-          4.1.4 BigQuery
-        </h3>
-        <p>
-          BigQuery is GCP’s data warehouse, similar to AWS’s Redshift. BigQuery
-          enables interactive analysis of massively large datasets. It is an
-          analytical engine that provides online analytical processing (OLAP)
-          performance.
-        </p>
+        <h4>4.1.4 BigQuery</h4>
+        <p>BigQuery is GCP’s data warehouse, similar to AWS’s Redshift.
+        BigQuery enables interactive analysis of massively large datasets. It
+        is an analytical engine that provides online analytical processing
+        (OLAP) performance.</p>
 
-        <h3>
-          4.1.5 Stackdriver
-        </h3>
-        <p>
-          Stackdriver is GCP’s logging service, similar to AWS’s CloudTrail or
-          CloudWatch. Stackdriver aggregates metrics, logs, and events from
-          cloud and on-premises infrastructure. Developers can use this data to
-          quickly pinpoint causes of issues across a system of services on GCP.
-        </p>
+        <h4>4.1.5 Stackdriver</h4>
+        <p>Stackdriver is GCP’s logging service, similar to AWS’s CloudTrail or
+        CloudWatch. Stackdriver aggregates metrics, logs, and events from cloud
+        and on-premises infrastructure. Developers can use this data to quickly
+        pinpoint causes of issues across a system of services on GCP.</p>
 
-        <h2 id="embulk">Embulk</h2>
-        <p>
-          Embulk is a core component of Mashr so we’ll also need to understand
-          what Embulk is and how we use it.
-        </p>
+        <h3>4.2 Embulk</h3>
+        <p>Embulk is a core component of Mashr so we’ll also need to
+        understand what Embulk is and how we use it.</p>
 
-        <h3>4.2.1 What is Embulk</h3>
-        <p>
-          Embulk is an open source plugin-based data loader. By “plugin-based”,
-          it means that a user can choose from an existing set of plugins for
-          their input and output data sources. They can also build their own
-          plugins if there is not an existing one for their data source.
-        </p>
+        <h4>4.2.1 What is Embulk</h4>
+        <p>Embulk is an open source plugin-based data loader. By
+        “plugin-based”, it means that a user can choose from an existing set of
+        plugins for their input and output data sources. They can also build
+        their own plugins if there is not an existing one for their data
+        source.</p>
+        <p>You download Embulk as a JRuby application. Then you can download
+        various gems (dependencies) which are the input and output plugins that
+        allow you to transfer data from one service to another. Embulk allows
+        input and output plugins to communicate with each other via Ruby
+        objects in a standard format so that any input data source can talk to
+        any output destination. You can read more about Embulk <a
+        href="https://www.embulk.org/docs/">here.</a></p>
 
-        <p>
-          You download Embulk as a JRuby application. Then you can download
-          various gems (dependencies) which are the input and output plugins
-          that allow you to transfer data from one service to another. Embulk
-          allows input and output plugins to communicate with each other via
-          Ruby objects in a standard format so that any input data source can
-          talk to any output destination. You can read more about Embulk <a
-            href="https://www.embulk.org/docs/">here.</a>
-        </p>
+        <h4>4.2.2 How Embulk works</h4>
+        <p>After downloading the input and output plugins, a user specifies
+        what input and output you want for a specific Embulk job with a YAML
+        file.</p>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>After completing the yaml file, an Embulk job is run in the
+        terminal.  There are different commands to run an Embulk job depending
+        on your use case. This is important, and later we will show you how
+        users can specify the Embulk run command for their data pipeline in
+        Mashr.</p>
 
-        <h3>
-          4.2.2 How Embulk works
-        </h3>
-        <p>
-          After downloading the input and output plugins, a user specifies what
-          input and output you want for a specific Embulk job with a YAML file.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          After completing the yaml file, an Embulk job is run in the terminal.
-          There are different commands to run an Embulk job depending on your
-          use case. This is important, and later we will show you how users can
-          specify the Embulk run command for their data pipeline in Mashr.
-        </p>
-
-        <p>
-          Two commands that are important to know are:
-        </p>
+        <p>Two commands that are important to know are:</p>
         <ul>
           <li>
             <code>embulk run config.yaml</code>
-            <span>
-              - Runs an embulk job
-            </span>
+            - Runs an embulk job
           </li>
           <li>
             <code>embulk run config.yml -c diff.yml</code>
-            <span>
-              - Runs an embulk job with incremental loading
-            </span>
+            - Runs an embulk job with incremental loading
           </li>
         </ul>
-        <p>
-          An “incremental load job” in Embulk is a job that tracks what data
-          has been loaded to prevent sending values that have already been
-          loaded to the destination. To do this, Embulk will create a second
-          YAML file that keeps track of the last values loaded.
-        </p>
+        <p>An “incremental load job” in Embulk is a job that tracks what data
+        has been loaded to prevent sending values that have already been loaded
+        to the destination. To do this, Embulk will create a second YAML file
+        that keeps track of the last values loaded.</p>
 
-        <p>
-          In this example embulk yaml file, you can see that the value for
-          <code>incremental</code> is set to <code>true</code>, and that the
-          columns that Embulk will track for incremental loading are
-          <code>created_at</code> and <code>id</code>. When we run this job
-          with the command <code>embulk run config.yml -c diff.yml</code>,
-          Embulk will create a separate <code>diff.yml</code> file that keeps
-          track of the last values of <code>created_at</code> and
-          <code>id</code> that have been loaded. Embulk will then check those
-          values the next time <code>embulk run config.yml -c diff.yml</code>
-          runs.
-        </p>
+        <p>In this example embulk yaml file, you can see that the value for
+        <code>incremental</code> is set to <code>true</code>, and that the
+        columns that Embulk will track for incremental loading are
+        <code>created_at</code> and <code>id</code>. When we run this job with
+        the command <code>embulk run config.yml -c diff.yml</code>, Embulk will
+        create a separate <code>diff.yml</code> file that keeps track of the
+        last values of <code>created_at</code> and <code>id</code> that have
+        been loaded. Embulk will then check those values the next time
+        <code>embulk run config.yml -c diff.yml</code> runs.</p>
 
-        <h3>
-          4.2.2 How Mashr uses Embulk
-        </h3>
-        <p>
-          Recall that earlier we talked about how data pipelines are composed
-          of several components. Mashr uses Embulk as the data extraction
-          component of the data pipeline it creates on GCP.
-        </p>
-        <p>
-          Mashr requires that a user completes a <code>mashr_config.yml</code>
-          file which specifies several values that Mashr needs to build the
-          data pipeline on GCP, as well as the input source that the user wants
-          to pull data from. Mashr parses this YAML file to generate various
-          resources including a new YAML file which our Embulk application
-          hosted on a GCE Instance will use later on. We’ll discuss more about
-          how this works on section 4.4.1 when we talk about the command
-          <code>mashr init</code>.
-        </p>
+        <h4>4.2.2 How Mashr uses Embulk</h4>
+        <p>Recall that earlier we talked about how data pipelines are composed
+        of several components. Mashr uses Embulk as the data extraction
+        component of the data pipeline it creates on GCP.</p>
+        <p>Mashr requires that a user completes a
+        <code>mashr_config.yml</code> file which specifies several values that
+        Mashr needs to build the data pipeline on GCP, as well as the input
+        source that the user wants to pull data from. Mashr parses this YAML
+        file to generate various resources including a new YAML file which our
+        Embulk application hosted on a GCE Instance will use later on. We’ll
+        discuss more about how this works on section 4.4.1 when we talk about
+        the command <code>mashr init</code>.</p>
 
-        <h3>
-          4.2.3 Why we chose Embulk
-        </h3>
-        <p>
-          When building Mashr, we first considered how users would supply data
-          to the pipeline without having to write code. We wanted something
-          modular and easy to use. There were several options we looked at. We
-          decided on Embulk because it has a large open source community and
-          well maintained code base.
-        </p>
+        <h4> 4.2.3 Why we chose Embulk </h4>
+        <p>When building Mashr, we first considered how users would supply
+        data to the pipeline without having to write code. We wanted something
+        modular and easy to use. There were several options we looked at. We
+        decided on Embulk because it has a large open source community and well
+        maintained code base.</p>
 
-        <h3>
-          4.3 Mashr Architecture
-        </h3>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          Now that we have a basic understanding of the GCP services and tools
-          that Mashr uses, let’s talk about what Mashr does and how it was
-          built. This diagram shows a high-level overview of Mashr’s main
-          components. When you run <code>mashr deploy</code> in your terminal,
-          the following actions take place:
-        </p>
-        <p>
-          Mashr sets up a GCE instance, with Embulk running on a Docker
-          container. The container has a cron job running that pulls data from
-          the source and loads it into Google Cloud Storage. Adding the data to
-          GCS triggers the Cloud Function. The Cloud Function attempts to load
-          the data into BigQuery. If the load is successful, the Cloud Function
-          moves the data file from the staging bucket to the archive bucket. If
-          the load is not successful, the data file remains in the staging
-          bucket for debugging purposes. Each step of this process has
-          Stackdriver monitoring enabled so users can debug the data pipeline
-          if necessary.
-        </p>
-        <p>
-          Let’s dive into the components of Mashr so we can break down each
-          step described above. We’ll start by talking about Embulk and the GCE
-          instance it is hosted on.
-        </p>
+        <h3>4.3 Mashr Architecture</h3>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>Now that we have a basic understanding of the GCP services and
+        tools that Mashr uses, let’s talk about what Mashr does and how it was
+        built. This diagram shows a high-level overview of Mashr’s main
+        components. When you run <code>mashr deploy</code> in your terminal,
+        the following actions take place:</p>
+        <p>Mashr sets up a GCE instance, with Embulk running on a Docker
+        container. The container has a cron job running that pulls data from
+        the source and loads it into Google Cloud Storage. Adding the data to
+        GCS triggers the Cloud Function. The Cloud Function attempts to load
+        the data into BigQuery. If the load is successful, the Cloud Function
+        moves the data file from the staging bucket to the archive bucket. If
+        the load is not successful, the data file remains in the staging bucket
+        for debugging purposes. Each step of this process has Stackdriver
+        monitoring enabled so users can debug the data pipeline if
+        necessary.</p>
+        <p>Let’s dive into the components of Mashr so we can break down each
+        step described above. We’ll start by talking about Embulk and the GCE
+        instance it is hosted on.</p>
 
-        <h3>
-          4.3.1 Google Compute Engine & Docker
-        </h3>
-        <p>
-        [ INSERT IMAGE HERE ]
+        <h3>4.3.1 Google Compute Engine & Docker</h3>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p> The data extraction component needs to be hosted somewhere. We
+        considered using a Cloud Function, but this wouldn’t work for two
+        reasons. First, Embulk is written in a runtime that is unsupported by
+        Cloud Functions. Second, we needed to persist data between runs to
+        track the most recent record extracted, however Cloud Functions are
+        ephemeral and therefore do not persist data between runs on their own.
         </p>
-        <p>
-          The data extraction component needs to be hosted somewhere. We
-          considered using a Cloud Function, but this wouldn’t work for two
-          reasons. First, Embulk is written in a runtime that is unsupported by
-          Cloud Functions. Second, we needed to persist data between runs to
-          track the most recent record extracted, however Cloud Functions are
-          ephemeral and therefore do not persist data between runs on their
-          own.
-        </p>
-        <p>
-          We decided it made sense to use a GCE instance to host Embulk, which
-          allows us maximal flexibility and the ability to persist data between
-          jobs.
-        </p>
-        <p>
-          Hosting on a GCE Instance raised the concern of OS dependency. For
-          instance, GCP recently discontinued support for GCE instances running
-          Debian 8. Over time, as VMs evolve and older versions are dropped
-          from the GCE library, Mashr may break and need to be reconfigured to
-          run on new OSs. It’s fine to upgrade over time, but we want to do
-          upgrades on our terms rather than be forced to update on someone
-          else’s schedule. So we put Embulk in a Docker container to make the
-          application resilient to technology changes. We’ll discuss this
-          process in more detail in section 5.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          We built a custom Docker image that creates a container with several
-          features and customizations depending on each particular
-          integration’s configuration. For instance, each container will need
-          different Embulk plugins installed and different Embulk run commands
-          depending on the user’s needs.
-        </p>
-        <p>
-          Additionally, we implemented the scheduling of Embulk jobs with a
-          cron job that runs every 10 minutes in the Docker container. By
-          default, containers shutdown once the main process running in the
-          foreground ends. So we needed the container to stay up between runs.
-          We implemented a solution to keep the container active that we’ll go
-          into detail about in the ‘challenges’ section below.
-        </p>
-        <p>
-          Finally, our Docker container is configured to send logs to GCP’s
-          Stackdriver for easier debugging and monitoring. This proved to be a
-          little tricky, and is also explored in the ‘challenges’ section.
-        </p>
+        <p>We decided it made sense to use a GCE instance to host Embulk,
+        which allows us maximal flexibility and the ability to persist data
+        between jobs.</p>
+        <p>Hosting on a GCE Instance raised the concern of OS dependency. For
+        instance, GCP recently discontinued support for GCE instances running
+        Debian 8. Over time, as VMs evolve and older versions are dropped from
+        the GCE library, Mashr may break and need to be reconfigured to run on
+        new OSs. It’s fine to upgrade over time, but we want to do upgrades on
+        our terms rather than be forced to update on someone else’s schedule.
+        So we put Embulk in a Docker container to make the application
+        resilient to technology changes. We’ll discuss this process in more
+        detail in section 5.</p>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>We built a custom Docker image that creates a container with
+        several features and customizations depending on each particular
+        integration’s configuration. For instance, each container will need
+        different Embulk plugins installed and different Embulk run commands
+        depending on the user’s needs.</p>
+        <p>Additionally, we implemented the scheduling of Embulk jobs with a
+        cron job that runs every 10 minutes in the Docker container. By
+        default, containers shutdown once the main process running in the
+        foreground ends. So we needed the container to stay up between runs.
+        We implemented a solution to keep the container active that we’ll go
+        into detail about in the ‘challenges’ section below.</p>
+        <p>Finally, our Docker container is configured to send logs to GCP’s
+        Stackdriver for easier debugging and monitoring. This proved to be a
+        little tricky, and is also explored in the ‘challenges’ section.</p>
 
-        <h3>
-          4.3.2 Google Cloud Storage
-        </h3>
-        <p>
-          The Embulk job running on the GCE instance formats that data into a
-          newline-delimited-JSON file, which works well for loading data into
-          BigQuery. However, instead of loading the data directly into BigQuery
-          we have an intermediary step where the data is loaded to a staging
-          bucket in GCS. We use the GCS buckets to provide a way to debug load
-          issues if they occur, and archive data files in case they’re needed
-          later. We’ll explain the archiving process in more detail shortly.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
+        <h3>4.3.2 Google Cloud Storage</h3>
+        <p>The Embulk job running on the GCE instance formats that data into a
+        newline-delimited-JSON file, which works well for loading data into
+        BigQuery. However, instead of loading the data directly into BigQuery
+        we have an intermediary step where the data is loaded to a staging
+        bucket in GCS. We use the GCS buckets to provide a way to debug load
+        issues if they occur, and archive data files in case they’re needed
+        later. We’ll explain the archiving process in more detail shortly.</p>
+        <p> [ INSERT IMAGE HERE ] </p>
 
-        <h3>
-          4.3.4 Cloud Function and BigQuery
-        </h3>
-        <p>
-          When Embulk loads the data file into GCS, the Mashr Cloud Function is
-          triggered. When the function triggers it first checks if the
-          destination table named in the configuration file exists in the
-          BigQuery dataset. If not, Mashr will create the table before
-          attempting to load data.
-        </p>
-        <p>
-          The Mashr Cloud Function’s primary purpose is to load the data file
-          from the GCS staging bucket into BigQuery. After a successful load,
-          the Function moves the data file from the GCS Staging bucket into the
-          Archive bucket. The Archive bucket uses Coldline storage so that
-          large amounts of data can be stored cheaply. We’ll explain the
-          purpose of the Archive bucket in the next section.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          Earlier, during the deployment process on the user’s local machine,
-          the code for this Cloud Function is generated and stored in the
-          user’s current working directory. This enables users to make
-          customizations to it if desired. For example, they could implement
-          customized data transformations or validations. 
-        </p>
-        <p>
-          Throughout the process, the logs from the Cloud Function are also
-          sent to Stackdriver so the user can easily debug if necessary.
-        </p>
+        <h3> 4.3.4 Cloud Function and BigQuery </h3>
+        <p>When Embulk loads the data file into GCS, the Mashr Cloud Function
+        is triggered. When the function triggers it first checks if the
+        destination table named in the configuration file exists in the
+        BigQuery dataset. If not, Mashr will create the table before attempting
+        to load data.</p>
+        <p>The Mashr Cloud Function’s primary purpose is to load the data file
+        from the GCS staging bucket into BigQuery. After a successful load, the
+        Function moves the data file from the GCS Staging bucket into the
+        Archive bucket. The Archive bucket uses Coldline storage so that large
+        amounts of data can be stored cheaply. We’ll explain the purpose of the
+        Archive bucket in the next section.</p>
+        <p>[ INSERT IMAGE HERE ]</p>
+        <p>Earlier, during the deployment process on the user’s local machine,
+        the code for this Cloud Function is generated and stored in the user’s
+        current working directory. This enables users to make customizations to
+        it if desired. For example, they could implement customized data
+        transformations or validations.</p>
+        <p>Throughout the process, the logs from the Cloud Function are also
+        sent to Stackdriver so the user can easily debug if necessary.</p>
 
-        <h3>
-          4.3.5 Failover for BigQuery Loads
-        </h3>
-        <p>
-          This brings us to how Mashr handles a failing load job and what the
-          Archive bucket is for. As previously stated, when the load job is
-          successful the Cloud Function moves the data file from the Staging to
-          the Archiving bucket for long term storage. However, if the data
-          fails to load to BigQuery, the Cloud Function leaves the file in the
-          Staging bucket. This way a user can easily find data files that were
-          not loaded into BigQuery and investigate the cause. For example, if a
-          new field was added to the data, BigQuery will reject the load. Once
-          the user identifies the issue they can fix the problem and then load
-          the data themselves.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
+        <h3>4.3.5 Failover for BigQuery Loads</h3>
+        <p>This brings us to how Mashr handles a failing load job and what the
+        Archive bucket is for. As previously stated, when the load job is
+        successful the Cloud Function moves the data file from the Staging to
+        the Archiving bucket for long term storage. However, if the data fails
+        to load to BigQuery, the Cloud Function leaves the file in the Staging
+        bucket. This way a user can easily find data files that were not loaded
+        into BigQuery and investigate the cause. For example, if a new field
+        was added to the data, BigQuery will reject the load. Once the user
+        identifies the issue they can fix the problem and then load the data
+        themselves.</p>
+        <p>[ INSERT IMAGE HERE ]</p>
 
-        <h3>
-          4.4 Mashr Commands
-        </h3>
-        <p>
-          In order to understand how much work Mashr is doing for the
-          developer, let's explore what each command is doing behind the
-          scenes, starting with <code>init</code>.
-        </p>
+        <h3>4.4 Mashr Commands</h3>
+        <p>In order to understand how much work Mashr is doing for the
+        developer, let's explore what each command is doing behind the scenes,
+        starting with <code>init</code>.</p>
 
-        <h3>
-          4.4.1 init
-        </h3>
+        <h3>4.4.1 init</h3>
+        <p>When you run <code>init</code> a template YAML configuration file
+        is created in your working directory called
+        <code>mashr_config.yml</code>. You can see that it instructs the user
+        to fill out the template before running <code>mashr deploy</code>:</p>
+        <p>[ INSERT IMAGE HERE ] </p>
+        <p>In this example you can see that we’ve run <code>init</code> and
+        Mashr created a <code>mashr_config.yml</code> template file in the
+        user’s current working directory.</p>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>If you pass the <code>--template</code> flag to <code>init</code>,
+        you can specify some different templates for various input data sources
+        that Mashr has available, including <code>psql</code> and
+        <code>http</code>. This example is of an <code>http</code> template.
+        In the actual templates that are generated there are helpful comments
+        in each section that explain what to input and how Mashr will use it.
+        </p>
+        <p>The user then only has to fill in the details and run <code>mashr
+          deploy</code>, and Mashr will do the heavy lifting of setting up your
+        data pipeline.</p>
+        <p>This is the example <code>mashr_config.yml</code> file after the
+        user has filled it out. The first section at the top,
+        <code>mashr</code>, is where the user specifies their GCP credentials
+        along with the table and dataset to send data to. Additionally, the
+        user specifies an <code>integration_name</code>.  The
+        <code>integration_name</code> is what Mashr uses to name the GCS
+        buckets, the GCE Instance and the Cloud Function. This way, the user
+        can find them easily in GCP’s console if needed.</p>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>Also in the <code>mashr</code> section, the user can specify what
+        command to run Embulk with, and any dependencies or gems that this
+        integration needs to run. These will be used later when we set up the
+        Docker container with Embulk running on it inside the GCE instance.</p>
+        <p>Everything inside the <code>embulk</code> section specifies what
+        the input should be. You can see that the user has specified an input
+        type of <code>http</code> and the url to <code>get</code> from.</p>
 
-        <p>
-          When you run <code>init</code> a template YAML configuration file is
-          created in your working directory called
-          <code>mashr_config.yml</code>. You can see that it instructs the user
-          to fill out the template before running <code>mashr deploy</code>:
+        <h3>4.4.2 Deploy</h3>
+        <p>After filling out the <code>mashr_config.yml</code> file, the user
+        runs <code>mashr deploy</code> from the same directory, and Mashr will
+        launch all the resources necessary in GCP to create the data pipeline.
         </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          In this example you can see that we’ve run <code>init</code> and
-          Mashr created a <code>mashr_config.yml</code> template file in the
-          user’s current working directory.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          If you pass the <code>--template</code> flag to <code>init</code>,
-          you can specify some different templates for various input data
-          sources that Mashr has available, including <code>psql</code> and
-          <code>http</code>. This example is of an <code>http</code> template.
-          In the actual templates that are generated there are helpful comments
-          in each section that explain what to input and how Mashr will use it.
-        </p>
-        <p>
-          The user then only has to fill in the details and run <code>mashr
-           deploy</code>, and Mashr will do the heavy lifting of setting up
-          your data pipeline.
-        </p>
-        <p>
-          This is the example <code>mashr_config.yml</code> file after the user
-          has filled it out. The first section at the top, <code>mashr</code>,
-          is where the user specifies their GCP credentials along with the
-          table and dataset to send data to. Additionally, the user specifies
-          an <code>integration_name</code>.  The <code>integration_name</code>
-          is what Mashr uses to name the GCS buckets, the GCE Instance and the
-          Cloud Function. This way, the user can find them easily in GCP’s
-          console if needed.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          Also in the <code>mashr</code> section, the user can specify what
-          command to run Embulk with, and any dependencies or gems that this
-          integration needs to run. These will be used later when we set up the
-          Docker container with Embulk running on it inside the GCE instance.
-        </p>
-        <p>
-          Everything inside the <code>embulk</code> section specifies what the
-          input should be. You can see that the user has specified an input
-          type of <code>http</code> and the url to <code>get</code> from.
-        </p>
-
-        <h3>
-          4.4.2 Deploy
-        </h3>
-        <p>
-          After filling out the <code>mashr_config.yml</code> file, the user
-          runs <code>mashr deploy</code> from the same directory, and Mashr
-          will launch all the resources necessary in GCP to create the data
-          pipeline.
-        </p>
-        <p>
-        [ INSERT IMAGE HERE ]
-        </p>
-        <p>
-          Deploy does a lot of work for you in the background. As a broad
-          overview, deploy performs these steps:
-
-        </p>
+        <p> [ INSERT IMAGE HERE ] </p>
+        <p>Deploy does a lot of work for you in the background. As a broad
+        overview, deploy performs these steps:</p>
         <ol>
           <li>
             Performs local validations to ensure that the
@@ -1059,107 +943,83 @@
             in step 4.
           </li>
         </ol>
-        <p>
-          Here is a diagram showing some of those major steps.
-        </p>
+        <p>Here is a diagram showing some of those major steps.</p>
         <p>
         [ INSERT IMAGE HERE ]
         </p>
 
-        <h3>
-          4.4.3 destroy
-        </h3>
+        <h3>4.4.3 destroy</h3>
         <p>
         [ INSERT IMAGE HERE ]
         </p>
-        <p>
-          Finally, if you want to take down all of those resources you can run
-          <code>mashr</code>. We considered a scenario where a user may have
-          already deleted a resources before running <code>mashr
-          destroy</code>, and therefore if a GCP resource doesn’t exist Mashr
-        will only throw a warning while attempting to destroy GCP resources
-        that don’t exist.
-        </p>
+        <p>Finally, if you want to take down all of those resources you can
+        run <code>mashr</code>. We considered a scenario where a user may have
+        already deleted a resources before running <code>mashr destroy</code>,
+        and therefore if a GCP resource doesn’t exist Mashr will only throw a
+        warning while attempting to destroy GCP resources that don’t exist.</p>
 
-        <h3>
-          4.5 Summary
-        </h3>
-        <p>
-          To recap, the principles of a good data pipeline include the
-          following:
-        </p>
+        <h3>4.5 Summary</h3>
+        <p>To recap, the principles of a good data pipeline include the
+        following:</p>
         <ul>
-          <li>
-            Extraction
-          </li>
-          <li>
-            Validation
-          </li>
-          <li>
-            Transformation
-          </li>
-          <li>
-            Staging / Archiving
-          </li>
-          <li>
-            Publishing to target
-          </li>
-          <li>
-            Monitoring
-          </li>
-          <li>
-            Orchestration and Ordering
-          </li>
-          <li>
-            Performance
-          </li>
+          <li>Extraction</li>
+          <li>Validation</li>
+          <li>Transformation</li>
+          <li>Staging / Archiving</li>
+          <li>Publishing to target</li>
+          <li>Monitoring</li>
+          <li>Orchestration and Ordering</li>
+          <li>Performance</li>
         </ul>
 
-
-        <p>
-          Mashr makes it easy to deploy a data pipeline with best practices
-          considered:
-        </p>
+        <p>Mashr makes it easy to deploy a data pipeline with best practices
+        considered:</p>
         <ul>
+          <li>Mashr orchestrates the extraction of data through Embulk.</li>
           <li>
-            Mashr orchestrates the extraction of data through Embulk.
+            Mashr provides for the staging and archiving of load jobs to enable
+            auditing, protect against failover, and provide easy debugging.
           </li>
           <li>
-            Mashr provides for the staging and archiving of load jobs to enable auditing, protect against failover, and provide easy debugging.
+            Mashr performs monitoring for each step of the process through
+            Stackdriver.
           </li>
           <li>
-            Mashr performs monitoring for each step of the process through Stackdriver.
+            Mashr provides an easy way to include validations and
+            transformations if a user needs them, with customizable cloud
+            functions.
           </li>
           <li>
-            Mashr provides an easy way to include validations and transformations if a user needs them, with customizable cloud functions.
+            Mashr eases deployment with a simple YAML file which manages the
+            setup of all the necessary resources of a data pipeline.
           </li>
           <li>
-            Mashr eases deployment with a simple YAML file which manages the setup of all the necessary resources of a data pipeline.
-          </li>
-          <li>
-            Mashr provides the user full control over their data and customizability for each step of the data pipeline process, should a developer need it.
+            Mashr provides the user full control over their data and
+            customizability for each step of the data pipeline process, should
+            a developer need it.
           </li>
         </ul>
 
         <h2 id="challenges">5 Challenges</h2>
-        <p>The process of designing and building Mashr came with many challenges. 
-        We’ll review some of the most interesting challenges below.</p>
+        <p>The process of designing and building Mashr came with many
+        challenges. We’ll review some of the most interesting challenges
+        below.</p>
 
         <h3>5.1 Docker Containers</h3>
 
-        <p>The first challenge was that Mashr launches Docker containers in a 
-        non-standard way. We knew we wanted to host Embulk on Docker in our GCE 
-        instance. However, each container for each integration would have a 
-        different state because the files and command that Embulk would use to 
-        run a particular job or integration would be different based on what 
-        input the user supplied in the mashr configuration file. For example, 
-        the dependencies that Embulk needs to run a particular input job are 
-        dependent on what type of input the user wants (e.g., REST api or psql 
-        database). Therefore that we can’t just host an image on Docker Hub 
-        that we pull every time we create a GCE instance for an integration. 
-        Instead we have to build the image on the fly inside the GCE instance. 
-        This meant that we have to dynamically generate the files that the 
-        container uses, copy them to the GCE instance, and then copy those 
+        <p>The first challenge was that Mashr launches Docker containers in a
+        non-standard way. We knew we wanted to host Embulk on Docker in our GCE
+        instance. However, each container for each integration would have a
+        different state because the files and command that Embulk would use to
+        run a particular job or integration would be different based on what
+        input the user supplied in the mashr configuration file. For example,
+        the dependencies that Embulk needs to run a particular input job are
+        dependent on what type of input the user wants (e.g., REST api or psql
+        database). Therefore that we can’t just host an image on Docker Hub
+        that we pull every time we create a GCE instance for an integration.
+        Instead we have to build the image on the fly inside the GCE instance.
+        This meant that we have to dynamically generate the files that the
+        container uses, copy them to the GCE instance, and then copy those
         files into the Docker container as its being built.</p>
 
         <p>We do that in a couple of steps:</p>
@@ -1277,23 +1137,24 @@
         src="docker_logging_script.png"
         alt="Docker Logging Script"/>
 
-        <h2>6 Future Work</h2>
+        <h2 id="future-work">6 Future Work</h2>
         <p>A software engineering project is never actually complete, and the 
         same can be said for Mashr. Below are ideas to further improve the 
         Mashr project.</p>
 
         <p>Some of the things that we’d like to include in the future are:</p>
         <ul>
-            <li>Enable cross platform support - AWS!</li>
-            <li>Enable other target destinations</li>
-            <li>Enable users authentication with OAuth instead of keyfiles.</li>
-            <li>
-                Automatic schema pre-check and creation to ensure that your input values will upload to BigQuery successfully.
-            </li>
-            <li>
-                Add a ‘redeploy’ command that allows users to overwrite existing 
-                integrations.
-            </li>
+          <li>Enable cross platform support - AWS!</li>
+          <li>Enable other target destinations</li>
+          <li>Enable users authentication with OAuth instead of keyfiles.</li>
+          <li>
+              Automatic schema pre-check and creation to ensure that your input
+              values will upload to BigQuery successfully.
+          </li>
+          <li>
+              Add a ‘redeploy’ command that allows users to overwrite existing 
+              integrations.
+          </li>
         </ul>
 
         <section id="footnotes">
@@ -1360,8 +1221,8 @@
       <ul>
         <li class="individual">
           <img src="https://s3.amazonaws.com/bam-lambda/images/jason.png" alt="Jason Overby"/>
-          <h3>Jason Overby</h3>
-          <p>Portland, OR</p>
+          <h3>Jacob Coker-Dukowitz</h3>
+          <p>San Jose, CA</p>
           <ul class="social-icons">
             <li>
               <a href="mailto:j@jasonoverby.com"
@@ -1382,8 +1243,8 @@
         </li>
         <li class="individual">
           <img src="https://s3.amazonaws.com/bam-lambda/images/jocie.png" alt="Jocie Moore"/>
-          <h3>Jocie Moore</h3>
-          <p>San Francisco, CA</p>
+          <h3>Linus Phan</h3>
+          <p>Los Angeles, CA</p>
           <ul class="social-icons">
             <li>
               <a href="mailto:hello@jociemoore.com"
@@ -1404,9 +1265,9 @@
         </li>
         <li class="individual">
           <img src="https://s3.amazonaws.com/bam-lambda/images/tak.png" alt="Takayoshi Sampson"/>
-          <h3>Tak Sampson</h3>
+          <h3>Mat Sachs</h3>
 
-          <p>New York, NY</p>
+          <p>Portland, OR</p>
           <ul class="social-icons">
             <li>
               <a href="mailto:tak.sampson@gmail.com"

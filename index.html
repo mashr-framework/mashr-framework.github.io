@@ -590,28 +590,29 @@
 
         <p>
           The workflow for a developer looks like this:
-          <ul>
-            <li>
-              First, you would run <code>mashr init</code> which sets up the user’s
-              current working directory as a mashr directory. It would create a
-              <code>mashr_config.yaml</code> file in the user’s current working
-              directory.
-            </li>
-            <li>The user then fills out the <code>mashr_config.yml</code> file
-              to tell Mashr what data source it will be pulling from and what
-              BigQuery dataset and table the data should go to.
-            </li>
-            <li>
-              Then you run <code>mashr deploy</code>, this launches all of the
-              resources
-              needed.
-            </li>
-            <li>
-              Finally, <code>mashr destroy</code> will take down all those
-              resources.
-            </li>
-          </ul>
         </p>
+
+        <ul>
+          <li>
+            First, you would run <code>mashr init</code> which sets up the user’s
+            current working directory as a mashr directory. It would create a
+            <code>mashr_config.yaml</code> file in the user’s current working
+            directory.
+          </li>
+          <li>The user then fills out the <code>mashr_config.yml</code> file
+            to tell Mashr what data source it will be pulling from and what
+            BigQuery dataset and table the data should go to.
+          </li>
+          <li>
+            Then you run <code>mashr deploy</code>, this launches all of the
+            resources
+            needed.
+          </li>
+          <li>
+            Finally, <code>mashr destroy</code> will take down all those
+            resources.
+          </li>
+        </ul>
 
         <p>
           Before going into detail about the data pipeline that Mashr deploys
@@ -720,22 +721,21 @@
 
         <p>
           Two commands that are important to know are:
-          <ul>
-            <li>
-              <code>embulk run config.yaml</code>
-              <span>
-                - Runs an embulk job
-              </span>
-            </li>
-            <li>
-              <code>embulk run config.yml -c diff.yml</code>
-              <span>
-                - Runs an embulk job with incremental loading
-              </span>
-            </li>
-          </ul>
         </p>
-
+        <ul>
+          <li>
+            <code>embulk run config.yaml</code>
+            <span>
+              - Runs an embulk job
+            </span>
+          </li>
+          <li>
+            <code>embulk run config.yml -c diff.yml</code>
+            <span>
+              - Runs an embulk job with incremental loading
+            </span>
+          </li>
+        </ul>
         <p>
           An “incremental load job” in Embulk is a job that tracks what data
           has been loaded to prevent sending values that have already been
@@ -1024,6 +1024,7 @@
           Deploy does a lot of work for you in the background. As a broad
           overview, deploy performs these steps:
 
+        </p>
         <ol>
           <li>
             Performs local validations to ensure that the
@@ -1058,7 +1059,6 @@
             in step 4.
           </li>
         </ol>
-        </p>
         <p>
           Here is a diagram showing some of those major steps.
         </p>
@@ -1087,59 +1087,59 @@
         <p>
           To recap, the principles of a good data pipeline include the
           following:
-          <ul>
-            <li>
-              Extraction
-            </li>
-            <li>
-              Validation
-            </li>
-            <li>
-              Transformation
-            </li>
-            <li>
-              Staging / Archiving
-            </li>
-            <li>
-              Publishing to target
-            </li>
-            <li>
-              Monitoring
-            </li>
-            <li>
-              Orchestration and Ordering
-            </li>
-            <li>
-              Performance
-            </li>
-          </ul>
         </p>
+        <ul>
+          <li>
+            Extraction
+          </li>
+          <li>
+            Validation
+          </li>
+          <li>
+            Transformation
+          </li>
+          <li>
+            Staging / Archiving
+          </li>
+          <li>
+            Publishing to target
+          </li>
+          <li>
+            Monitoring
+          </li>
+          <li>
+            Orchestration and Ordering
+          </li>
+          <li>
+            Performance
+          </li>
+        </ul>
 
 
         <p>
           Mashr makes it easy to deploy a data pipeline with best practices
           considered:
-          <ul>
-            <li>
-              Mashr orchestrates the extraction of data through Embulk.
-            </li>
-            <li>
-              Mashr provides for the staging and archiving of load jobs to enable auditing, protect against failover, and provide easy debugging.
-            </li>
-            <li>
-              Mashr performs monitoring for each step of the process through Stackdriver.
-            </li>
-            <li>
-              Mashr provides an easy way to include validations and transformations if a user needs them, with customizable cloud functions.
-            </li>
-            <li>
-              Mashr eases deployment with a simple YAML file which manages the setup of all the necessary resources of a data pipeline.
-            </li>
-            <li>
-              Mashr provides the user full control over their data and customizability for each step of the data pipeline process, should a developer need it.
-            </li>
-          </ul>
         </p>
+        <ul>
+          <li>
+            Mashr orchestrates the extraction of data through Embulk.
+          </li>
+          <li>
+            Mashr provides for the staging and archiving of load jobs to enable auditing, protect against failover, and provide easy debugging.
+          </li>
+          <li>
+            Mashr performs monitoring for each step of the process through Stackdriver.
+          </li>
+          <li>
+            Mashr provides an easy way to include validations and transformations if a user needs them, with customizable cloud functions.
+          </li>
+          <li>
+            Mashr eases deployment with a simple YAML file which manages the setup of all the necessary resources of a data pipeline.
+          </li>
+          <li>
+            Mashr provides the user full control over their data and customizability for each step of the data pipeline process, should a developer need it.
+          </li>
+        </ul>
 
         <h2 id="challenges">5 Challenges</h2>
         <p>The process of designing and building Mashr came with many challenges. 

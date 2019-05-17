@@ -58,7 +58,19 @@
       </h1>
       <p>a <span>data pipeline</span> framework built for the cloud</p>
     </header>
-    <hr>
+    <section id="integration">
+        <article class="box">
+            <div class="text-box">
+                <h1>Automate your data pipeline</h1>
+                <p>Mashr simplifies the process of taking your data from 
+                disparate sources and putting them into a single place so 
+                that you can use that data.</p>
+            </div>
+        </article>
+        <div class="box">
+            <img src="nothing.png" alt="integrate your data" />
+        </div>
+    </section>
     <main>
       <section id="case-study">
         <h1>Case Study</h1>
@@ -589,7 +601,8 @@
 
         <p>Mashr was made to be an easy-to-use framework with just a few
         commands so that developers can get started quickly building their own
-        data pipelines:</p>
+        data pipelines. Below are the main commands with a brief description:
+        </p>
 
         <ul>
           <li>
@@ -650,54 +663,56 @@
         cloud services, so we’ll name the equivalent service on AWS to help
         build a frame of reference.</p>
 
-        <h4>4.1.1 Google Compute Engine (GCE)</h4>
+        <h5>Google Compute Engine (GCE)</h5>
         <p>GCE is the Infrastructure-as-a-Service (IaaS) component of GCP. A
         GCE Instance is a virtual machine. If you’re familiar with AWS this is
         similar to an EC2 instance.</p>
 
-        <h4>4.1.2 Google Cloud Storage (GCS)</h4>
+        <h5>Google Cloud Storage (GCS)</h5>
         <p>GCS is a data storage service similar to AWS’s S3. GCS users create
         “buckets” to store data. Each bucket can have different settings that
         affect the speed and price of the storage. For example Mashr uses both
         “Multi-Regional” and “Coldline” storage. Multi-Regional is faster but
         more expensive than Coldline storage.</p>
 
-        <h4>4.1.3 Cloud Function</h4>
+        <h5>Cloud Function</h5>
         <p>Cloud Functions are GCP’s implementation of a Function-as-a-Service
         (FaaS) platform, similar to AWS Lambda. It executes custom code on
         fully-managed servers in response to event triggers. Since the servers
         are fully managed, this removes the work needed to manage the
         infrastructure that the code runs on.</p>
 
-        <h4>4.1.4 BigQuery</h4>
+        <h5>BigQuery</h5>
         <p>BigQuery is GCP’s data warehouse, similar to AWS’s Redshift.
         BigQuery enables interactive analysis of massively large datasets. It
         is an analytical engine that provides online analytical processing
         (OLAP) performance.</p>
 
-        <h4>4.1.5 Stackdriver</h4>
+        <h5>Stackdriver</h5>
         <p>Stackdriver is GCP’s logging service, similar to AWS’s CloudTrail or
         CloudWatch. Stackdriver aggregates metrics, logs, and events from cloud
         and on-premises infrastructure. Developers can use this data to quickly
         pinpoint causes of issues across a system of services on GCP.</p>
 
         <h3>4.2 Embulk</h3>
-        <p>Embulk is a core component of Mashr so we’ll also need to
-        understand what Embulk is and how we use it.</p>
+        <p>One key component in a robust data pipeline is the data extraction 
+        component, which is the component that's responsible for managing the 
+        scheduling and extraction of data from the source. Mashr uses Embulk as 
+        a piece of its default data extraction component, and we'll spend this 
+        section understanding what Embulk is and how Mashr uses it.</p>
 
         <h4>4.2.1 What is Embulk</h4>
-        <p>Embulk is an open source plugin-based data loader. By
-        “plugin-based”, it means that a user can choose from an existing set of
-        plugins for their input and output data sources. They can also build
-        their own plugins if there is not an existing one for their data
-        source.</p>
+        <p>Embulk is an open source plugin-based tool for data extraction. By “plugin-based”, it means that a user can choose from a variety of 
+        existing plugins for their input and output data sources. For instance, 
+        Embulk features plugins for REST APIs, relational and nosql databases. 
+        A developer can also build their own plugins if there is not an existing 
+        one for their data source.</p>
         <p>You download Embulk as a JRuby application. Then you can download
         various gems (dependencies) which are the input and output plugins that
         allow you to transfer data from one service to another. Embulk allows
         input and output plugins to communicate with each other via Ruby
         objects in a standard format so that any input data source can talk to
-        any output destination. You can read more about Embulk <a
-        href="https://www.embulk.org/docs/">here.</a></p>
+        any output destination.</p>
 
         <h4>4.2.2 How Embulk works</h4>
         <p>After downloading the input and output plugins, a user specifies

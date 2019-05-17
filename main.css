@@ -72,7 +72,37 @@ h4 {
 section#integration {
   background: #e8ebef;
   width: 100%;
+  display: flex;
   /*background: #ffedc1;*/
+}
+
+.text-box {
+  width: 70%;
+}
+
+.text-box h1 {
+  font-size: 3.5rem;
+}
+
+.text-box p {
+  font-size: 2rem;
+}
+
+.box {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  padding: 165px 0;
+}
+
+#integration div.box {
+  display: block;
+  text-align: center;
+}
+
+#integration img {
+  max-width: 480px;
+  width: 100%;
 }
 
 main > section {

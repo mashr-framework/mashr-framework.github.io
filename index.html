@@ -586,7 +586,7 @@
         <img src="#"
         alt="pros and cons table for mashr"/>
 
-        <h2 id="mashr">4 Mashr Design</h2>
+        <h2 id="mashr">4 Mashr</h2>
 
         <p>Mashr was made to be an easy-to-use framework with just a few
         commands so that developers can get started quickly building their own
@@ -620,10 +620,10 @@
 
         <ul>
           <li>
-            First, you would run <code>mashr init</code> which sets up the
-            user’s current working directory as a mashr directory. It would
-            create a <code>mashr_config.yaml</code> file in the user’s current
-            working directory.
+            First, you would run <code class="command">mashr init</code> 
+            which sets up the user’s current working directory as a mashr 
+            directory. It would create a <code>mashr_config.yaml</code> file in 
+            the user’s current working directory.
           </li>
           <li>
             The user then fills out the <code>mashr_config.yml</code> file
@@ -631,12 +631,12 @@
             BigQuery dataset and table the data should go to.
           </li>
           <li>
-            Then you run <code>mashr deploy</code>, this launches all of the
-            resources needed.
+            Then you run <code class="command">mashr deploy</code>, this 
+            launches all of the resources needed.
           </li>
           <li>
-            Finally, <code>mashr destroy</code> will take down all those
-            resources.
+            Finally, <code class="command">mashr destroy</code> will take down 
+            all those resources.
           </li>
         </ul>
 
@@ -714,11 +714,11 @@
         <p>Two commands that are important to know are:</p>
         <ul>
           <li>
-            <code>embulk run config.yaml</code>
+            <code class="command">embulk run config.yaml</code>
             - Runs an embulk job
           </li>
           <li>
-            <code>embulk run config.yml -c diff.yml</code>
+            <code class="command">embulk run config.yml -c diff.yml</code>
             - Runs an embulk job with incremental loading
           </li>
         </ul>
@@ -731,11 +731,12 @@
         <code>incremental</code> is set to <code>true</code>, and that the
         columns that Embulk will track for incremental loading are
         <code>created_at</code> and <code>id</code>. When we run this job with
-        the command <code>embulk run config.yml -c diff.yml</code>, Embulk will
-        create a separate <code>diff.yml</code> file that keeps track of the
+        the command 
+        <code class="command">embulk run config.yml -c diff.yml</code>, Embulk 
+        will create a separate <code>diff.yml</code> file that keeps track of the
         last values of <code>created_at</code> and <code>id</code> that have
         been loaded. Embulk will then check those values the next time
-        <code>embulk run config.yml -c diff.yml</code> runs.</p>
+        <code class="command">embulk run config.yml -c diff.yml</code> runs.</p>
 
         <h4>4.2.2 How Mashr uses Embulk</h4>
         <p>Recall that earlier we talked about how data pipelines are composed
@@ -748,7 +749,7 @@
         file to generate various resources including a new YAML file which our
         Embulk application hosted on a GCE Instance will use later on. We’ll
         discuss more about how this works on section 4.4.1 when we talk about
-        the command <code>mashr init</code>.</p>
+        the command <code class="command">mashr init</code>.</p>
 
         <h4> 4.2.3 Why we chose Embulk </h4>
         <p>When building Mashr, we first considered how users would supply
@@ -762,8 +763,8 @@
         <p>Now that we have a basic understanding of the GCP services and
         tools that Mashr uses, let’s talk about what Mashr does and how it was
         built. This diagram shows a high-level overview of Mashr’s main
-        components. When you run <code>mashr deploy</code> in your terminal,
-        the following actions take place:</p>
+        components. When you run <code class="command">mashr deploy</code> in 
+        your terminal, the following actions take place:</p>
         <p>Mashr sets up a GCE instance, with Embulk running on a Docker
         container. The container has a cron job running that pulls data from
         the source and loads it into Google Cloud Storage. Adding the data to
@@ -868,7 +869,8 @@
         <p>When you run <code>init</code> a template YAML configuration file
         is created in your working directory called
         <code>mashr_config.yml</code>. You can see that it instructs the user
-        to fill out the template before running <code>mashr deploy</code>:</p>
+        to fill out the template before running 
+        <code class="command">mashr deploy</code>:</p>
         <p>[ INSERT IMAGE HERE ] </p>
         <p>In this example you can see that we’ve run <code>init</code> and
         Mashr created a <code>mashr_config.yml</code> template file in the
@@ -903,9 +905,9 @@
 
         <h3>4.4.2 Deploy</h3>
         <p>After filling out the <code>mashr_config.yml</code> file, the user
-        runs <code>mashr deploy</code> from the same directory, and Mashr will
-        launch all the resources necessary in GCP to create the data pipeline.
-        </p>
+        runs <code class="command">mashr deploy</code> from the same directory, 
+        and Mashr will launch all the resources necessary in GCP to create the 
+        data pipeline.</p>
         <p> [ INSERT IMAGE HERE ] </p>
         <p>Deploy does a lot of work for you in the background. As a broad
         overview, deploy performs these steps:</p>
@@ -953,11 +955,11 @@
         [ INSERT IMAGE HERE ]
         </p>
         <p>Finally, if you want to take down all of those resources you can
-        run <code>mashr</code>. We considered a scenario where a user may have
-        already deleted a resources before running <code>mashr destroy</code>,
-        and therefore if a GCP resource doesn’t exist Mashr will only throw a
-        warning while attempting to destroy GCP resources that don’t exist.</p>
-
+        run <code class="command">mashr</code>. We considered a scenario where 
+        a user may have already deleted a resources before running 
+        <code class="command">mashr destroy</code>, and therefore if a GCP 
+        resource doesn’t exist Mashr will only throw a warning while attempting
+        to destroy GCP resources that don’t exist.</p>
         <h3>4.5 Summary</h3>
         <p>To recap, the principles of a good data pipeline include the
         following:</p>

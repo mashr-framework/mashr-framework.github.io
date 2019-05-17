@@ -33,7 +33,7 @@
         <!-- TODO: change out IDs -->
       <img src="assets/logo/mashr_logo_mark.png" alt="Mashr logo" id="mashr-logo" />
       <a href="https://github.com/mashr-framework/mashr" target="_blank">
-        <img src="assets/icons/github_white.png" alt="github logo" id="github-logo" />
+        <img src="assets/icons/github_black.png" alt="github logo" id="github-logo" />
       </a>
     </div>
     <nav id="site-navigation">
@@ -554,8 +554,7 @@
         to deploy. Mashr does all of this while also taking into account the
         best practices for setting up a data pipeline.</p>
 
-        <img src="#"
-        alt="showing where mashr sits on scale of level of abstraction"/>
+        <img src="assets/images/abstracted.png" alt="showing where mashr sits on scale of level of abstraction" />
 
         <p>By “Abstracted” in the image above we mean how much of the hosting,
         management and configuration a user has to worry about.</p>
@@ -566,8 +565,7 @@
         how to recover data that fails to load, or where to archive data for
         future reference.</p>
 
-        <img src="#"
-        alt="showing where mashr sits on scale of level of customizability"/>
+        <img src="assets/images/customizable.png" alt="showing where mashr sits on scale of level of customizability" />
 
         <p>Similarly with “customizability”, Mashr is positioned between hosted
         and self-hosted solutions. Since Mashr is open source, a user can alter
@@ -790,12 +788,12 @@
         maintained code base.</p>
 
         <h3>4.3 Mashr Architecture</h3>
-        <p> [ INSERT IMAGE HERE ] </p>
         <p>Now that we have a basic understanding of the GCP services and
         tools that Mashr uses, let’s talk about what Mashr does and how it was
         built. This diagram shows a high-level overview of Mashr’s main
         components. When you run <code class="command">mashr deploy</code> in 
         your terminal, the following actions take place:</p>
+        <img src="assets/images/main.png" alt="Mashr architecture" />
         <p>Mashr sets up a GCE instance, with Embulk running on a Docker
         container. The container has a cron job running that pulls data from
         the source and loads it into Google Cloud Storage. Adding the data to
@@ -811,7 +809,6 @@
         instance it is hosted on.</p>
 
         <h3>4.3.1 Google Compute Engine & Docker</h3>
-        <p> [ INSERT IMAGE HERE ] </p>
         <p> The data extraction component needs to be hosted somewhere. We
         considered using a Cloud Function, but this wouldn’t work for two
         reasons. First, Embulk is written in a runtime that is unsupported by
@@ -819,6 +816,7 @@
         track the most recent record extracted, however Cloud Functions are
         ephemeral and therefore do not persist data between runs on their own.
         </p>
+        <img src="assets/images/GCE.png" alt="Google Compute Engine and Embulk on Docker Container" />
         <p>We decided it made sense to use a GCE instance to host Embulk,
         which allows us maximal flexibility and the ability to persist data
         between jobs.</p>
@@ -855,7 +853,7 @@
         bucket in GCS. We use the GCS buckets to provide a way to debug load
         issues if they occur, and archive data files in case they’re needed
         later. We’ll explain the archiving process in more detail shortly.</p>
-        <p> [ INSERT IMAGE HERE ] </p>
+        <img src="assets/images/GCS.png" alt="Google Cloud Storage staging and archive buckets" />
 
         <h3> 4.3.4 Cloud Function and BigQuery </h3>
         <p>When Embulk loads the data file into GCS, the Mashr Cloud Function
@@ -869,7 +867,8 @@
         Archive bucket. The Archive bucket uses Coldline storage so that large
         amounts of data can be stored cheaply. We’ll explain the purpose of the
         Archive bucket in the next section.</p>
-        <p>[ INSERT IMAGE HERE ]</p>
+        <img src="assets/images/GCF_to_GBQ.png" alt="Google Cloud Function to BigQuery" />
+
         <p>Earlier, during the deployment process on the user’s local machine,
         the code for this Cloud Function is generated and stored in the user’s
         current working directory. This enables users to make customizations to
@@ -889,7 +888,7 @@
         was added to the data, BigQuery will reject the load. Once the user
         identifies the issue they can fix the problem and then load the data
         themselves.</p>
-        <p>[ INSERT IMAGE HERE ]</p>
+        <img src="assets/images/GCS.png" alt="Google Cloud Storage staging and archive buckets" />
 
         <h3>4.4 Mashr Commands</h3>
         <p>In order to understand how much work Mashr is doing for the

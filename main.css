@@ -373,7 +373,7 @@ header h1 img {
 }
 
 #case-study nav a:hover {
-  color: #9eba2a;
+  color: #282828;
 }
 
 #case-study h3,
@@ -402,7 +402,7 @@ header h1 img {
 #case-study h3,
 #case-study h4,
 #case-study h5 {
-  color: #777;
+  color: #282828;
 }
 
 #case-study p {
@@ -465,7 +465,7 @@ header h1 img {
 ------------------------------------ */
 
 h2#references {
-  color: #ffd162;
+  color: #ef431b;
   font-size: 1.7rem;
   margin-top: 75px;
 }
@@ -487,7 +487,7 @@ h2#references {
 }
 
 #footnotes a:hover {
-  color: #c3e634;
+  color: #282828;
 }
 
 /* ---------------------------------

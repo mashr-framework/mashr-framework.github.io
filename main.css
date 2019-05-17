@@ -259,6 +259,7 @@ nav#site-navigation a {
 
 header {
   height: 100vh;
+  background: #282828;
 }
 
 header h1 {
@@ -269,6 +270,7 @@ header h1 {
 }
 
 header p {
+  color: white;
   font-family: 'proxima_novabold', 'Open Sans', sans-serif;
   font-size: 3.5rem;
   left: 50%;

@@ -618,6 +618,22 @@ small {
     padding: 0 75px;
   }
 
+  section#integration {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #integration article {
+    width: 100vw;
+    text-align: center;
+    padding-bottom: 100px;
+  }
+
+  #integration div.box {
+    width: 100vw;
+    padding: 0 10px 100px 10px;
+  }
+
   section#case-study {
     margin: 70px auto;
   }

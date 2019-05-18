@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (onTeam) {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}White`]);
+      } else if (onHeader) {
+        changeImgSrc(`${logo}-logo`, logoUrls[`${logo}White`]);
       } else {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}Black`]);
       }

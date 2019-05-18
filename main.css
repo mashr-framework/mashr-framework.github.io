@@ -408,7 +408,7 @@ header h1 img {
 #case-study h3,
 #case-study h4,
 #case-study h5 {
-  color: #f57c6e;
+  color: #444343;
 }
 
 #case-study p {
@@ -593,7 +593,7 @@ small {
 
 /* ---------------------------------
 
-              mobile
+            mobile (width)
 
 ------------------------------------ */
 
@@ -1029,5 +1029,30 @@ small {
 
   #our-team > p {
     width: 57%;
+  }
+}
+
+/* ---------------------------------
+
+            mobile (height)
+
+------------------------------------ */
+
+@media (max-height: 500px) {
+  header {
+    display: flex;
+    align-items: center;
+  }
+
+  header h1 {
+    margin: 0 auto;
+  }
+
+  header h1 img {
+    padding: 0;
+  }
+
+  header p {
+    display: none;
   }
 }

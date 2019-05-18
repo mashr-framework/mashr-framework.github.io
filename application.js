@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const highlightSection = (li, a) => {
     li.style.listStyle = 'disc';
     li.style.fontWeight = 'bold';
-    li.style.color = '#282828';
-    a.style.color = '#282828';
+    li.style.color = '#ffd162';
+    a.style.color = '#ffd162';
   };
 
   const mobileCaseStudyLinks = [];

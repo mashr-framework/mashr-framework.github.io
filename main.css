@@ -69,11 +69,19 @@ h4 {
   font-size: 1.25rem;
 }
 
-section#integration {
-  background: #e8ebef;
+.integration {
   width: 100%;
   display: flex;
-  /*background: #ffedc1;*/
+  border-top: 2px solid #000;
+}
+
+.integration:first-of-type {
+  background: #c1c1c1;
+}
+
+.integration:nth-of-type(2) {
+  background: #9c9c9c;
+  border-bottom: 2px solid #000;
 }
 
 .text-box {
@@ -96,29 +104,32 @@ section#integration {
   padding: 100px 0;
 }
 
-#integration div.box {
+.integration div.box {
   display: block;
   text-align: center;
 }
 
-#integration img {
+.integration img {
   max-width: 600px;
   width: 100%;
 }
 
 .button {
   padding: 25px 50px;
-  background: #FFF;
+  background: #fff;
   color: #35363A;
   text-transform: uppercase;
   font-size: 24px;
+  border: 1px solid #ccc;
   border-radius: 10px;
   cursor: pointer;
   line-height: 34px;
   text-decoration: none;
 }
 
-
+.button:hover {
+  background: #fff;
+}
 
 main > section {
   margin: 80px 0 100px 0;
@@ -157,12 +168,6 @@ sup a {
 
 sup a:hover {
   color: #9eba2a;
-}
-
-hr {
-  border-style: solid;
-  border-color: #dfe0e2;
-  margin: 0;
 }
 
 /* ---------------------------------
@@ -373,7 +378,7 @@ header h1 img {
 }
 
 #case-study nav a:hover {
-  color: #282828;
+  color: #ffd162;
 }
 
 #case-study h3,
@@ -402,7 +407,7 @@ header h1 img {
 #case-study h3,
 #case-study h4,
 #case-study h5 {
-  color: #282828;
+  color: #f57c6e;
 }
 
 #case-study p {
@@ -487,7 +492,7 @@ h2#references {
 }
 
 #footnotes a:hover {
-  color: #282828;
+  color: #ffd162;
 }
 
 /* ---------------------------------
@@ -553,8 +558,8 @@ h2#references {
 }
 
 #our-team .individual li img {
-  background-color: #c3e643;
-  border: 1px solid #c3e643;
+  background-color: #ffd162;
+  border: 1px solid #ffd162;
   border-radius: 25px;
   padding: 2px;
   margin-top: 10px;
@@ -562,8 +567,8 @@ h2#references {
 }
 
 #our-team .individual li img:hover {
-  background-color: #9eba2a;
-  border: 1px solid #9eba2a;
+  background-color: #daaa36;
+  border: 1px solid #daaa36;
 }
 
 #our-team .individual li {

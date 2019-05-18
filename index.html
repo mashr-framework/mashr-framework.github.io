@@ -816,7 +816,7 @@
         track the most recent record extracted, however Cloud Functions are
         ephemeral and therefore do not persist data between runs on their own.
         </p>
-        <img src="assets/images/GCE.png" alt="Google Compute Engine and Embulk on Docker Container" />
+        <img src="assets/images/gce.png" alt="Google Compute Engine and Embulk on Docker Container" />
         <p>We decided it made sense to use a GCE instance to host Embulk,
         which allows us maximal flexibility and the ability to persist data
         between jobs.</p>
@@ -853,7 +853,7 @@
         bucket in GCS. We use the GCS buckets to provide a way to debug load
         issues if they occur, and archive data files in case they’re needed
         later. We’ll explain the archiving process in more detail shortly.</p>
-        <img src="assets/images/GCS.png" alt="Google Cloud Storage staging and archive buckets" />
+        <img src="assets/images/gcs.png" alt="Google Cloud Storage staging and archive buckets" />
 
         <h3> 4.3.4 Cloud Function and BigQuery </h3>
         <p>When Embulk loads the data file into GCS, the Mashr Cloud Function
@@ -867,7 +867,7 @@
         Archive bucket. The Archive bucket uses Coldline storage so that large
         amounts of data can be stored cheaply. We’ll explain the purpose of the
         Archive bucket in the next section.</p>
-        <img src="assets/images/GCF_to_GBQ.png" alt="Google Cloud Function to BigQuery" />
+        <img src="assets/images/gcf_to_gbq.png" alt="Google Cloud Function to BigQuery" />
 
         <p>Earlier, during the deployment process on the user’s local machine,
         the code for this Cloud Function is generated and stored in the user’s
@@ -888,7 +888,7 @@
         was added to the data, BigQuery will reject the load. Once the user
         identifies the issue they can fix the problem and then load the data
         themselves.</p>
-        <img src="assets/images/GCS.png" alt="Google Cloud Storage staging and archive buckets" />
+        <img src="assets/images/gcs.png" alt="Google Cloud Storage staging and archive buckets" />
 
         <h3>4.4 Mashr Commands</h3>
         <p>In order to understand how much work Mashr is doing for the
@@ -1056,30 +1056,32 @@
 
         <p>We do that in a couple of steps:</p>
         <ul>
-            <li>We convert template files to strings.</li>
-            <li>
-                We interpolate the values that the user supplied in the 
-                <code>mashr_config.yml</code> file into those template file 
-                strings.
-            </li>
-            <li>
-                We create files from the strings and copy those files to the 
-                GCE instance using a startup script. One of the files copied 
-                over is the Dockerfile.
-            </li>
-            <li>We then build the Docker image inside the startup script.</li>
-            <li>
-                When the Docker image is built, it includes commands to copy 
-                files from the GCE instance into the container.
-            </li>
-            <li>
-                Then we run the container with all of the files it needs in it.
-            </li>
+          <li>
+            We convert template files to strings.
+          </li>
+          <li>
+            We interpolate the values that the user supplied in the 
+            <code>mashr_config.yml</code> file into those template file 
+            strings.
+          </li>
+          <li>
+            We create files from the strings and copy those files to the 
+            GCE instance using a startup script. One of the files copied 
+            over is the Dockerfile.
+          </li>
+          <li>
+            We then build the Docker image inside the startup script.
+          </li>
+          <li>
+            When the Docker image is built, it includes commands to copy 
+            files from the GCE instance into the container.
+          </li>
+          <li>
+              Then we run the container with all of the files it needs in it.
+          </li>
         </ul>
 
-        <img
-        src="docker_container_creation_process.png"
-        alt="Process of creating the docker container"/>
+        <img src="assets/images/docker_container_creation_process.png" alt="Process of creating the docker container"/>
 
         <h3>5.2 Docker Cron Jobs</h3>
         <p>Another issue that we ran into was that Embulk doesn’t have its own 

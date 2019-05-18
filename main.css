@@ -69,11 +69,20 @@ h4 {
   font-size: 1.25rem;
 }
 
-section#integration {
-  background: #e8ebef;
+.integration {
   width: 100%;
   display: flex;
-  /*background: #ffedc1;*/
+}
+
+.integration:first-of-type {
+  background: #c1c1c1;
+  border-top: 2px solid #dfe0e2;
+}
+
+.integration:nth-of-type(2) {
+  background: #dedede;
+  border-top: 2px solid #dfe0e2;
+  border-bottom: 2px solid #dfe0e2;
 }
 
 .text-box {
@@ -86,39 +95,42 @@ section#integration {
 
 .text-box p {
   font-size: 2rem;
-  margin-bottom: 50px;
+  margin: 50px 0;
 }
 
 .box {
   width: 50vw;
   display: flex;
   justify-content: center;
-  padding: 100px 0;
+  padding: 2rem 0;
 }
 
-#integration div.box {
+.integration div.box {
   display: block;
   text-align: center;
 }
 
-#integration img {
+.integration img {
   max-width: 600px;
   width: 100%;
 }
 
 .button {
   padding: 25px 50px;
-  background: #FFF;
+  background: #fff;
   color: #35363A;
   text-transform: uppercase;
   font-size: 24px;
+  border: 1px solid #ccc;
   border-radius: 10px;
   cursor: pointer;
   line-height: 34px;
   text-decoration: none;
 }
 
-
+.button:hover {
+  background: #fff;
+}
 
 main > section {
   margin: 80px 0 100px 0;
@@ -157,12 +169,6 @@ sup a {
 
 sup a:hover {
   color: #9eba2a;
-}
-
-hr {
-  border-style: solid;
-  border-color: #dfe0e2;
-  margin: 0;
 }
 
 /* ---------------------------------
@@ -304,7 +310,7 @@ nav#site-navigation a {
 
 header {
   height: 100vh;
-  background: #fff;
+  background: #282828;
 }
 
 header h1 {
@@ -315,7 +321,7 @@ header h1 {
 }
 
 header p {
-  color: #282828;
+  color: #fff;
   font-family: 'proxima_novabold', 'Open Sans', sans-serif;
   font-size: 3.5rem;
   left: 50%;
@@ -373,7 +379,7 @@ header h1 img {
 }
 
 #case-study nav a:hover {
-  color: #282828;
+  color: #ef431b;
 }
 
 #case-study h3,
@@ -402,7 +408,7 @@ header h1 img {
 #case-study h3,
 #case-study h4,
 #case-study h5 {
-  color: #282828;
+  color: #f57c6e;
 }
 
 #case-study p {
@@ -487,7 +493,7 @@ h2#references {
 }
 
 #footnotes a:hover {
-  color: #282828;
+  color: #ef431b;
 }
 
 /* ---------------------------------
@@ -553,8 +559,8 @@ h2#references {
 }
 
 #our-team .individual li img {
-  background-color: #c3e643;
-  border: 1px solid #c3e643;
+  background-color: #ffd162;
+  border: 1px solid #ffd162;
   border-radius: 25px;
   padding: 2px;
   margin-top: 10px;
@@ -562,8 +568,8 @@ h2#references {
 }
 
 #our-team .individual li img:hover {
-  background-color: #9eba2a;
-  border: 1px solid #9eba2a;
+  background-color: #daaa36;
+  border: 1px solid #daaa36;
 }
 
 #our-team .individual li {
@@ -680,12 +686,46 @@ small {
     padding: 0 90px;
   }
 
+  /* section */
+
+  .box {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .integration {
+    flex-direction: column;
+  }
+
+  .integration a.button {
+    display: inline-block;
+    margin: 1rem auto;
+    padding: .4rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .integration img {
+    max-width: 360px;
+  }
+
+  .text-box h1 {
+    font-size: 3.0rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-box p {
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
   #our-team > p {
     width: 60%;
   }
 
   #our-team .individual li {
-      margin: 10px 7px 0;
+    margin: 10px 7px 0;
   }
 
   #our-team .individual li img {
@@ -815,6 +855,20 @@ small {
     font-size: 1rem;
   }
 
+  /* section */
+
+  .integration {
+    flex-direction: column;
+  }
+
+  .text-box h1 {
+    font-size: 2.7rem;
+  }
+
+  .text-box p {
+    font-size: 1.5rem;
+  }
+
   /* Main */
 
   #home p {
@@ -878,7 +932,7 @@ small {
 
 @media (max-width: 500px) {
   #home p {
-    font-size: 2.1rem;
+    font-size: 1.7rem;
   }
 
   #case-study img{
@@ -930,8 +984,14 @@ small {
     width: 23px;
   }
 
-  #home p {
+  /* section */
+
+  .text-box p {
     font-size: 1.7rem;
+  }
+
+  .text-box h1 {
+    font-size: 2.5rem;
   }
 
   main {

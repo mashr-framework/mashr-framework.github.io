@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const highlightSection = (li, a) => {
     li.style.listStyle = 'disc';
     li.style.fontWeight = 'bold';
-    li.style.color = '#282828';
-    a.style.color = '#282828';
+    li.style.color = '#ef431b';
+    a.style.color = '#ef431b';
   };
 
   const mobileCaseStudyLinks = [];
@@ -113,6 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const onTeam = isOnTeamSection(logo);
 
       if (onTeam) {
+        changeImgSrc(`${logo}-logo`, logoUrls[`${logo}White`]);
+      } else if (onHeader) {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}White`]);
       } else {
         changeImgSrc(`${logo}-logo`, logoUrls[`${logo}Black`]);

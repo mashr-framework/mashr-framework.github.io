@@ -140,7 +140,8 @@
         its robust set of tools for data analysis. In comparing the tools for
         big data analytics between Google’s GCP and Amazon’s AWS, GCP has an
         edge due to their varied range of services, including Tensorflow which
-        is one of the most used Machine Learning libraries [3].</p>
+        is one of the most used Machine Learning libraries
+        <sup><a href="#footnote-3">3</a></sup>.</p>
 
         <h2 id="data-pipelines">2 Data Pipelines</h2>
         <h3>2.1 Use Case</h3>
@@ -201,9 +202,9 @@
         a number of design decisions. This is why there is a large ecosystem of 
         tools and platforms that perform data pipeline services. The range of 
         these tools is vast. For instance, you have everything from Apache 
-        Airflow [7] which is an open source workflow management system, to 
-        Stitch [8], a proprietary solution with an easy-to-use drag-and-drop 
-        UI.</p>
+        Airflow <sup><a href="#footnote-7">7</a></sup> which is an open source 
+        workflow management system, to Stitch <sup><a href="#footnote-8">8</a></sup>, 
+        a proprietary solution with an easy-to-use drag-and-drop UI.</p>
 
         <p>In order to better understand why there is such a large array of tools 
         out there and what design decisions Bookend would face, let’s consider 
@@ -241,8 +242,8 @@
 
         <h4>2.2.3 Transform</h4>
         <p>More often than not we will want to perform some sort of transformation 
-        on the data [1]. This could look like a lot of different things.
-        For example:</p>
+        on the data <sup><a href="#footnote-1">1</a></sup>. This could look like 
+        a lot of different things. For example:</p>
 
         <ul>
           <li>Removing extraneous or erroneous data (cleaning), </li>
@@ -349,9 +350,9 @@
         Load”.  This follows the traditional flow of data for most data
         pipelines. Due to the cost of storing data, you would want to perform
         any transformations that reduce the amount of data before loading it to
-        the destination database [6]. For instance you may want to perform
-        aggregations on the data or another step that would reduce the amount
-        of data before loading.</p>
+        the destination database <sup><a href="#footnote-6">6</a></sup>. For 
+        instance you may want to perform aggregations on the data or another 
+        step that would reduce the amount of data before loading.</p>
 
 
         <img src="assets/images/etl.png" alt="Extract, Transform and Load" />
@@ -360,8 +361,8 @@
         <p>The other subset is ELT, which stands for “Extract, Load, Transform”. 
         With the advent of cloud platforms like Google Cloud Platform and AWS, 
         the cost of storing data is much cheaper and therefore is no longer as 
-        great a concern [6]. Therefore, transformations like aggregation can 
-        occur after we store data.</p>
+        great a concern <sup><a href="#footnote-6">6</a></sup>. Therefore, 
+        transformations like aggregation can occur after we store data.</p>
 
         <img src="assets/images/elt.png" alt="Extract, Load and Transform" />
 
@@ -405,15 +406,17 @@
         <h4>2.5.3 Incomplete libraries</h4>
         <p>Also, some of the client libraries for communicating with GCP 
         resources may not be complete. For instance, there is no node.js client 
-        library to manage cloud functions at the time of this writing [11].</p>
+        library to manage cloud functions at the time of this writing 
+        <sup><a href="#footnote-11">11</a></sup>.</p>
 
         <h4>2.5.4 Individual “tasks” are comprised of many smaller tasks</h4>
         <p>Finally, there is rarely a single task that doesn’t involve a series 
         of smaller tasks. For instance, creating a virtual machine instance on 
         the cloud with GCP requires you to also determine what OS you need and 
-        how much memory it should have [10]. As another example, setting up a 
-        Google Cloud Storage Bucket requires you to determine which Storage 
-        Class to use [9].</p>
+        how much memory it should have <sup><a href="#footnote-10">10</a></sup>. 
+        As another example, setting up a Google Cloud Storage Bucket requires 
+        you to determine which Storage Class to use 
+        <sup><a href="#footnote-9">9</a></sup>.</p>
 
         <h2 id="solutions">3 Solutions</h2>
 
@@ -471,10 +474,11 @@
         unmaintained.</p>
 
         <p>As an example, one of the surviving and most successful of these
-        open source platforms is Pentaho Data Integration (PDI) [12] which
-        integrates with over 300 services. PDI's graphical interface can be
-        used to develop a simple ETL data pipeline to have steps for
-        extraction, transformation, and loading.</p>
+        open source platforms is Pentaho Data Integration (PDI) 
+        <sup><a href="#footnote-12">12</a></sup> which integrates with over 
+        300 services. PDI's graphical interface can be used to develop a 
+        simple ETL data pipeline to have steps for extraction, transformation, 
+        and loading.</p>
 
 
         <p>The pros of self-hosted solutions are:</p>
@@ -695,9 +699,9 @@
         <p>One key component in a robust data pipeline is the data extraction
         component, which is the component that's responsible for managing the
         scheduling and extraction of data from the source. Mashr uses Embulk
-        [13] as part of its default data extraction component, and we'll spend
-        this section understanding why we use Embulk, what it is, and how Mashr
-        uses it.</p>
+        <sup><a href="#footnote-13">13</a></sup> as part of its default data 
+        extraction component, and we'll spend this section understanding why 
+        we use Embulk, what it is, and how Mashr uses it.</p>
 
         <h4>4.2.1 Why we use Embulk</h4>
         <p>When building Mashr, we first considered how users would supply data

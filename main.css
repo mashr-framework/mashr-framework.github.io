@@ -435,6 +435,14 @@ header h1 img {
   font-size: 0.8rem;
 }
 
+#case-study .lower-alpha-list li {
+  list-style: lower-alpha;
+}
+
+#case-study .number-list li {
+  list-style: decimal;
+}
+
 /* ---------------------------------
 
               commands

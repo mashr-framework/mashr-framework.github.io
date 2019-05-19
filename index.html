@@ -281,11 +281,11 @@
         corrupted, we need an easy way to debug each step of our data pipeline.
         Therefore, we should have a logging service that takes account of:</p>
 
-        <ul>
+        <ol class="lower-alpha-list">
           <li>What action was taken</li>
           <li>If there were errors that occurred</li>
           <li>What data was transferred in each step of our data pipeline</li>
-        </ul>
+        </ol>
 
         <p>Ideally, if you were to see data corrupted in your destination 
         database then you should have a method to review every step of you data 
@@ -635,7 +635,7 @@
           <li>
             First, you would run <code class="command">mashr init</code> 
             which sets up the user’s current working directory as a mashr 
-            directory. It would create a <code>mashr_config.yaml</code> file in 
+            directory. It would create a <code>mashr_config.yml</code> file in 
             the user’s current working directory.
           </li>
           <li>
@@ -746,7 +746,7 @@
         know are:</p>
         <ul>
           <li>
-            <code class="command">embulk run config.yaml</code>
+            <code class="command">embulk run config.yml</code>
             - Runs an embulk job
           </li>
           <li>
@@ -932,7 +932,7 @@
         <img src="assets/images/mashr_deploy.gif" alt="gif of running `mashr deploy` in the terminal" />
         <p>Deploy does a lot of work for you in the background. As a broad
         overview, deploy performs these steps:</p>
-        <ol>
+        <ol class="number-list">
           <li>
             Performs local validations to ensure that the
             <code>integration_name</code>, table name and dataset name fit
@@ -976,7 +976,7 @@
           <img src="assets/images/mashr_destroy.gif" alt="gif of running `mashr destroy` in the terminal" />
         </p>
         <p>Finally, if you want to take down all of those resources you can
-        run <code class="command">mashr</code>. We considered a scenario where 
+        run <code class="command">mashr destroy</code>. We considered a scenario where 
         a user may have already deleted a resources before running 
         <code class="command">mashr destroy</code>, and therefore if a GCP 
         resource doesn’t exist Mashr will only throw a warning while attempting
@@ -1046,7 +1046,7 @@
         files into the Docker container as its being built.</p>
 
         <p>We do that in a couple of steps:</p>
-        <ul>
+        <ul class="number-list">
           <li>
             We convert template files to strings.
           </li>
@@ -1080,14 +1080,14 @@
         the Embulk jobs to run at a regular interval.</p>
 
         <p>Our options to do this were either:</p>
-        <ul>
-            <li>
-                A cron job on the virtual machine that the container runs on
-            </li>
-            <li>Cloud Scheduler, GCP’s built in cron service</li>
-            <li>A cron job that runs in a separate container</li>
-            <li>A cron job running inside the Docker container itself</li>
-        </ul>
+        <ol class="lower-alpha-list">
+          <li>
+              A cron job on the virtual machine that the container runs on
+          </li>
+          <li>Cloud Scheduler, GCP’s built in cron service</li>
+          <li>A cron job that runs in a separate container</li>
+          <li>A cron job running inside the Docker container itself</li>
+        </ol>
 
         <p>Because running a cron job on the virtual machine is one more 
         dependency on the type of OS that we don’t want to include, we can 
@@ -1113,9 +1113,9 @@
         of it.</p>
 
         <p>In order to accomplish this, the last command in our Dockerfile is a 
-        <code>tail -f</code> command which watches a particular file 
+        <code class="command">tail -f</code> command which watches a particular file 
         indefinitely. This keeps the container running in the background. 
-        Additionally, our <code>run</code> command used to start the container 
+        Additionally, our <code class="command">run</code> command used to start the container 
         has a “restart” policy of true. This ensures that if for any reason the 
         container is stopped that it will restart on its own.</p>
 
@@ -1126,7 +1126,7 @@
         for every step of the process. This included what events occurred, 
         errors if there were any, and data that was transferred between steps. 
         Since Mashr uses GCP it makes sense that we use GCP’s logging service, 
-        "Stackdriver". Stackdriver is a great logging tool that aggregates each 
+        'Stackdriver'. Stackdriver is a great logging tool that aggregates each 
         GCP project’s logs, metrics and events into a single filterable 
         dashboard. Therefore for each step of our data pipeline—the Embulk GCE 
         Instance, the buckets and the function—we had to ensure that logs were 
@@ -1136,7 +1136,7 @@
         if there were any errors on an Embulk cron job the user wouldn’t have a 
         way of knowing that an error occurred without actually going into the 
         Docker container. To do this they would have to SSH into the GCE 
-        Instance, <code>exec</code> into the Docker container, find where the 
+        Instance, <code class="command">exec</code> into the Docker container, find where the 
         logs are stored, and then output them to stdout for viewing.</p>
 
         <p>Therefore we had to find a way of getting the <code>stderr</code> 
@@ -1152,7 +1152,7 @@
         <p>However, normally cron logs would not be captured by Docker’s logging 
         service by default. You have to send the logs to a specific process that 
         Docker listens to. Ultimately we were able to accomplish this by running 
-        the command for the cron job with <code>>> /proc/1/fd/1 2>&1</code>. 
+        the command for the cron job with <code class="command">>> /proc/1/fd/1 2>&1</code>. 
         This appends the <code>stdout</code> and <code>stderr</code> of the 
         command preceding it to the process that Docker is watching.
 
@@ -1173,7 +1173,7 @@
               values will upload to BigQuery successfully.
           </li>
           <li>
-              Add a ‘redeploy’ command that allows users to overwrite existing 
+              Add a <code class="command">redeploy</code> command that allows users to overwrite existing 
               integrations.
           </li>
         </ul>
@@ -1199,6 +1199,7 @@
             <li id="footnote-10"><a href="https://cloud.google.com/compute/docs/machine-types" target="_blank">https://cloud.google.com/compute/docs/machine-types</a></li>
             <li id="footnote-11"><a href="https://cloud.google.com/nodejs/docs/" target="_blank">https://cloud.google.com/nodejs/docs/</a></li>
             <li id="footnote-12"><a href="https://help.pentaho.com/Documentation/7.1/0D0/Pentaho_Data_Integration" target="_blank">https://help.pentaho.com/Documentation/7.1/0D0/Pentaho_Data_Integration</a></li>
+            <li id="footnote-13"><a href="https://www.embulk.org/" target="_blank">https://www.embulk.org/</a></li>
           </ol>
 <!--
           <h5>7.2 Resources</h5>
